@@ -8,4 +8,9 @@
         <servlet-name>main</servlet-name>
         <servlet-class>by.epam.onlineShop.Servlet</servlet-class>
     </servlet>
+
+    <servlet-mapping>
+        <servlet-name>main</servlet-name>
+        <url-pattern>/controller</url-pattern>
+    </servlet-mapping>
 </web-app>
