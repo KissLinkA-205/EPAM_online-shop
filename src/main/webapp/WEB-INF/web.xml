@@ -11,6 +11,7 @@
 
     <servlet-mapping>
         <servlet-name>main</servlet-name>
-        <url-pattern>/controller</url-pattern>
+        <url-pattern>/online-shop</url-pattern>
     </servlet-mapping>
+
 </web-app>
