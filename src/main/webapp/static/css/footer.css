@@ -1,0 +1,17 @@
+.footer-panel {
+    background: #454445;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    white-space: nowrap;
+    position: fixed;
+    left: 0; bottom: 0;
+}
+
+.footer-text {
+    text-decoration: none;
+    margin-left: 2%;
+    font-size: 18px;
+    font-style: normal;
+    color: #a3a3a3;
+}

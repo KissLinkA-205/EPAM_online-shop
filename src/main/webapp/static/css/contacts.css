@@ -1,0 +1,15 @@
+.contacts-emblem {
+    width: 331pt;
+    height: 188pt;
+    margin-left: -100px;
+}
+
+.contacts-header {
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 20%;
+    margin-top: 20%;
+    font-size: 45px;
+    font-style: normal;
+    color: #454445;
+}
