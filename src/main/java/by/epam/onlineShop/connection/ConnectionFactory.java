@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionFactory {
-    private static final String URL = "db.url";
+    private static final String URL = "url";
 
     static ProxyConnection createConnection() throws ConnectionException {
         ProxyConnection proxyConnection = null;
