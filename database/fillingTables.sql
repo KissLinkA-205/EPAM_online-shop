@@ -58,22 +58,22 @@ INSERT INTO Categories (category)
 VALUES ('Headphones');
 
 /* todo --------------filling in the table "Products"---------------------*/
-INSERT INTO Products (category_id, name, price, status, photo)
-VALUES (1, 'ASUS ROG Strix SCAR II GL504GM-ES026T', 4200.00, 1, 'laptops/ASUS_ROG_Strix_SCAR_II_GL504GM-ES026T.jpg');
+INSERT INTO Products (category_id, name, price, status, photo, orders_number)
+VALUES (1, 'ASUS ROG Strix SCAR II GL504GM-ES026T', 4200.00, 1, 'laptops/ASUS_ROG_Strix_SCAR_II_GL504GM-ES026T.jpg', 6);
 
-INSERT INTO Products (category_id, name, price, status, photo)
-VALUES (1, 'ASUS TUF Gaming A15 FA506IU-HN200', 2894.34, 1, 'laptops/ASUS_TUF_Gaming_A15_FA506IU-HN200.jpg');
+INSERT INTO Products (category_id, name, price, status, photo, orders_number)
+VALUES (1, 'ASUS TUF Gaming A15 FA506IU-HN200', 2894.34, 1, 'laptops/ASUS_TUF_Gaming_A15_FA506IU-HN200.jpg', 5);
 
-INSERT INTO Products (category_id, name, price, status, photo)
+INSERT INTO Products (category_id, name, price, status, photo, orders_number)
 VALUES (2, 'SmartBuy 612AG Red/Black (SBM-612AG-RK)', 20.76, 1,
-        'computer_mouse/SmartBuy_612AG_RedBlack_(SBM-612AG-RK).jpg');
+        'computer_mouse/SmartBuy_612AG_RedBlack_(SBM-612AG-RK).jpg', 10);
 
-INSERT INTO Products (category_id, name, price, status, photo)
-VALUES (3, 'A4Tech Bloody G500', 76.57, 1, 'headphones/A4Tech_Bloody_G500.jpg');
+INSERT INTO Products (category_id, name, price, status, photo, orders_number)
+VALUES (3, 'A4Tech Bloody G500', 76.57, 1, 'headphones/A4Tech_Bloody_G500.jpg', 3);
 
-INSERT INTO Products (category_id, name, price, status, photo)
+INSERT INTO Products (category_id, name, price, status, photo, orders_number)
 VALUES (3, 'Xiaomi Mi True Wireless Earbuds Basic 2 TWSEJ061LS', 42.00, 0,
-        'headphones/Xiaomi_Mi_True_Wireless_Earbuds_Basic_2_TWSEJ061LS.jpg');
+        'headphones/Xiaomi_Mi_True_Wireless_Earbuds_Basic_2_TWSEJ061LS.jpg', 1);
 
 /* todo --------------filling in the table "Orders"---------------------*/
 INSERT INTO Orders (product_id, userOrder_id, number)

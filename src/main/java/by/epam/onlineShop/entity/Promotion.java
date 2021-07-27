@@ -1,24 +1,29 @@
 package by.epam.onlineShop.entity;
 
-import jdk.jfr.DataAmount;
-
+import java.io.Serializable;
 import java.util.Date;
 
-public class Promotion implements Identifiable {
+public class Promotion implements Serializable, Identifiable {
     private long id;
     private String name;
     private String description;
     private byte discount;
     private Date beginningDate;
     private Date expirationDate;
+    private String photo;
 
-    Promotion(long id, String name, String description, byte discount, Date beginningDate, Date expirationDate) {
+    public static final String TABLE = "Promotions";
+
+    public Promotion() {}
+
+    public Promotion(long id, String name, String description, byte discount, Date beginningDate, Date expirationDate, String photo) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.discount = discount;
         this.beginningDate = beginningDate;
         this.expirationDate = expirationDate;
+        this.photo = photo;
     }
 
     @Override
@@ -26,24 +31,56 @@ public class Promotion implements Identifiable {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public byte getDiscount() {
         return discount;
+    }
+
+    public void setDiscount(byte discount) {
+        this.discount = discount;
     }
 
     public Date getBeginningDate() {
         return beginningDate;
     }
 
+    public void setBeginningDate(Date beginningDate) {
+        this.beginningDate = beginningDate;
+    }
+
     public Date getExpirationDate() {
         return expirationDate;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     @Override
@@ -58,7 +95,8 @@ public class Promotion implements Identifiable {
                 description.equals(promotion.description) &&
                 discount == promotion.discount &&
                 beginningDate == promotion.beginningDate &&
-                expirationDate == promotion.expirationDate;
+                expirationDate == promotion.expirationDate &&
+                photo.equals(promotion.photo);
     }
 
     @Override
@@ -71,6 +109,7 @@ public class Promotion implements Identifiable {
         result = prime * result + (int) discount;
         result = prime * result + beginningDate.hashCode();
         result = prime * result + expirationDate.hashCode();
+        result = prime * result + ((photo == null) ? 0 : photo.hashCode());
         return result;
     }
 }

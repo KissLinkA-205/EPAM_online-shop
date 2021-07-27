@@ -93,6 +93,7 @@ CREATE TABLE IF NOT EXISTS Promotions
     discount         TINYINT(3) NOT NULL,
     beginning_date   DATE NOT NULL,
     expiration_date  DATE NOT NULL,
+    orders_number    BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (id)
 );
 
