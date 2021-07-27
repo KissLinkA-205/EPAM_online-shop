@@ -7,9 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/footer.css"/>
+    <footer class="footer mt-auto py-3 bg-primary">
+        <div class="container text-center text-lg-start text-muted" style="font-size: 18px">
+            <p> © 2021 Online-shop - Angelika Derkach</p>
+        </div>
+    </footer>
 </head>
 
-<div class="footer-panel">
-    <a class="footer-text">© 2021 Online-shop - Angelika Derkach</a>
-</div>
