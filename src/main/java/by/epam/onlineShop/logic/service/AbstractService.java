@@ -13,7 +13,7 @@ import by.epam.onlineShop.exeptions.ServiceException;
 import java.util.List;
 
 public class AbstractService {
-    private final DaoHelperFactory daoHelperFactory;
+    protected final DaoHelperFactory daoHelperFactory;
 
     public AbstractService(DaoHelperFactory daoHelperFactory) {
         this.daoHelperFactory = daoHelperFactory;

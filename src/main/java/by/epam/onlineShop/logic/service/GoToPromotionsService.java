@@ -10,11 +10,10 @@ import by.epam.onlineShop.exeptions.ServiceException;
 
 import java.util.List;
 
-public class GoToPromotionsService {
-    private final DaoHelperFactory daoHelperFactory;
+public class GoToPromotionsService extends AbstractService{
 
     public GoToPromotionsService(DaoHelperFactory daoHelperFactory) {
-        this.daoHelperFactory = daoHelperFactory;
+        super(daoHelperFactory);
     }
 
     public List<Promotion> getPromotions() throws ServiceException {
