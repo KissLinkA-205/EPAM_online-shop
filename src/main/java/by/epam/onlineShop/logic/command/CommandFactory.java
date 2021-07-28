@@ -2,6 +2,7 @@ package by.epam.onlineShop.logic.command;
 
 import by.epam.onlineShop.dao.helper.DaoHelperFactory;
 import by.epam.onlineShop.logic.command.impl.*;
+import by.epam.onlineShop.logic.service.GoToContactsService;
 import by.epam.onlineShop.logic.service.GoToMainService;
 import by.epam.onlineShop.logic.service.GoToPromotionsService;
 import by.epam.onlineShop.logic.service.LoginService;
@@ -32,7 +33,7 @@ public class CommandFactory {
             case LOG_IN:
                 return new GoToLoginCommand();
             case CONTACTS:
-                return new GoToContactsCommand();
+                return new GoToContactsCommand(new GoToContactsService(new DaoHelperFactory()));
             case PROMOTIONS:
                 return new GoToPromotionsCommand(new GoToPromotionsService(new DaoHelperFactory()));
             case CATALOG:
