@@ -12,6 +12,7 @@
     <jsp:include page="headerLinks.jsp"/>
 </head>
 
+
 <header>
     <fmt:setLocale value="${sessionScope.language}"/>
     <fmt:setBundle basename="localization.language" var="loc"/>
@@ -60,7 +61,7 @@
 
                             <li class="nav-item">
                                 <a class="nav-link active"
-                                   href="${pageContext.request.contextPath}/online-shop?command=language&language=en&path=${pageContext.request.servletPath}">
+                                   href="${pageContext.request.contextPath}/online-shop?${pageContext.request.queryString}&language=en">
                                     EN
                                 </a>
                             </li>
@@ -71,7 +72,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link"
-                                   href="${pageContext.request.contextPath}/online-shop?command=language&language=ru&path=${pageContext.request.servletPath}">
+                                   href="${pageContext.request.contextPath}/online-shop?${pageContext.request.queryString}&language=ru">
                                     RU
                                 </a>
                             </li>
@@ -85,7 +86,7 @@
 
                             <li class="nav-item">
                                 <a class="nav-link"
-                                   href="${pageContext.request.contextPath}/online-shop?command=language&language=en&path=${pageContext.request.servletPath}">
+                                   href="${pageContext.request.contextPath}/online-shop?${pageContext.request.queryString}&language=en">
                                     EN
                                 </a>
 
@@ -97,7 +98,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active"
-                                   href="${pageContext.request.contextPath}/online-shop?command=language&language=ru&path=${pageContext.request.servletPath}">
+                                   href="${pageContext.request.contextPath}/online-shop?${pageContext.request.queryString}&language=ru">
                                     RU
                                 </a>
                             </li>

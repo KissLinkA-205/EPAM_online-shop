@@ -9,7 +9,6 @@ import by.epam.onlineShop.logic.service.LoginService;
 
 public class CommandFactory {
     private static final String MAIN = "main";
-    private static final String LANGUAGE = "language";
     private static final String PROFILE = "profile";
     private static final String REGISTRATION = "registration";
     private static final String LOG_IN = "login";
@@ -19,13 +18,12 @@ public class CommandFactory {
     private static final String PROMOTIONS = "promotions";
     private static final String CHECK_LOGIN = "checkLogin";
     private static final String LOG_OUT = "logOut";
+    private static final String LOG_UP = "logUp";
 
     public static Command createCommand(String command) {
         switch (command) {
             case MAIN:
                 return new GoToMainCommand(new GoToMainService(new DaoHelperFactory()));
-            case LANGUAGE:
-                return new LanguageCommand();
             case PROFILE:
                 return new GoToProfileCommand();
             case REGISTRATION:
@@ -42,6 +40,8 @@ public class CommandFactory {
                 return new LogInCommand(new LoginService(new DaoHelperFactory()));
             case LOG_OUT:
                 return new LogOutCommand();
+            case LOG_UP:
+                return new GoToLogUpCommand();
             default:
                 throw new IllegalArgumentException(ERROR);
         }

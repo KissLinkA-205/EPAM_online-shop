@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Map;
+import java.util.Optional;
 
 public class LanguageFilter implements Filter {
     private static final String ATTRIBUTE = "language";
@@ -28,12 +30,34 @@ public class LanguageFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         RequestContextHelper requestHelper = new RequestContextHelper(request);
         RequestContext requestContext = requestHelper.createContext();
-        String language = (String) requestContext.getSessionAttribute(ATTRIBUTE);
-        if (language == null) {
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+
+        String sessionLanguage = (String) requestContext.getSessionAttribute(ATTRIBUTE);
+        if (sessionLanguage == null) {
             requestContext.addSessionAttribute(ATTRIBUTE, EN);
             requestHelper.updateRequest(requestContext);
         }
+
+        String requestLanguage = request.getParameter(ATTRIBUTE);
+        if (requestLanguage != null) {
+            requestContext.addSessionAttribute(ATTRIBUTE, requestLanguage);
+            String requestString = removeLanguageParameter(request);
+            requestHelper.updateRequest(requestContext);
+            response.sendRedirect(requestString);
+            return;
+        }
+
         filterChain.doFilter(servletRequest, servletResponse);
+    }
+
+    private String removeLanguageParameter(HttpServletRequest request) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        StringBuilder requestString = new StringBuilder(request.getContextPath() + "/online-shop?");
+        parameterMap.entrySet().stream()
+                .filter(e -> !ATTRIBUTE.equals(e.getKey()))
+                .forEach(e -> requestString.append(e.getKey()).append("=").append(e.getValue()[0]).append("&"));
+        requestString.deleteCharAt(requestString.length() - 1);
+        return requestString.toString();
     }
 
     @Override
