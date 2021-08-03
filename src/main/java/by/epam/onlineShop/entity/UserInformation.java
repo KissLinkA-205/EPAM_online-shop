@@ -7,7 +7,11 @@ public class UserInformation implements Identifiable {
     private String patronymic;
     private long phone;
 
-    UserInformation(long id, String name, String surname, String patronymic, long phone) {
+    public static final String TABLE = "UserInformation";
+
+    public UserInformation() {}
+
+    public UserInformation(long id, String name, String surname, String patronymic, long phone) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -20,20 +24,40 @@ public class UserInformation implements Identifiable {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSurname() {
         return surname;
     }
 
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
     public String getPatronymic() {
         return patronymic;
     }
 
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
+    }
+
     public long getPhone() {
         return phone;
+    }
+
+    public void setPhone(long phone) {
+        this.phone = phone;
     }
 
     @Override
