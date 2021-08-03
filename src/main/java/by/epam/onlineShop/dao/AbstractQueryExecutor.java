@@ -8,6 +8,7 @@ import by.epam.onlineShop.mapper.RowMapper;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -44,9 +45,23 @@ public class AbstractQueryExecutor<T extends Identifiable> {
         return entities;
     }
 
+    protected long executeInsertQuery(String query, Object... params) throws DaoException {
+        long result = 0;
+        try (PreparedStatement statement = createStatement(query, params)) {
+             statement.executeUpdate();
+             ResultSet generatedKey = statement.getGeneratedKeys();
+            if (generatedKey.next()) {
+                result = generatedKey.getLong(1);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        }
+        return result;
+    }
+
     private PreparedStatement createStatement(String query, Object... params) throws DaoException {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             for (int i = 0; i < params.length; i++) {
                 preparedStatement.setObject(i + 1, params[i]);
             }

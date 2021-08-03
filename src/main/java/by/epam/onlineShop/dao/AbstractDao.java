@@ -6,6 +6,7 @@ import by.epam.onlineShop.exeptions.DaoException;
 import by.epam.onlineShop.mapper.RowMapper;
 
 import java.util.List;
+import java.util.Optional;
 
 public abstract class AbstractDao<T extends Identifiable> extends AbstractQueryExecutor<T> implements Dao<T> {
     private final String tableName;
@@ -19,5 +20,11 @@ public abstract class AbstractDao<T extends Identifiable> extends AbstractQueryE
     public List<T> getAll() throws DaoException {
         String query = "SELECT * FROM " + tableName;
         return executeQuery(query);
+    }
+
+    @Override
+    public Optional<T> getById(long id) throws DaoException {
+        String query = "SELECT * FROM " + tableName + " WHERE id=?";
+        return executeQueryForSingleResult(query, id);
     }
 }
