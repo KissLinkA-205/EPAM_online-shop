@@ -15,25 +15,39 @@ public class RequestContext {
         this.sessionAttributes = sessionAttributes;
     }
 
-    public  Map<String,Object> getAllRequestAttributes(){
-        return new HashMap<String,Object>(requestAttributes);
-    }
-    public  Map<String,Object> getAllSessionAttributes(){
-        return new HashMap<String,Object>(sessionAttributes);
+    public Map<String, Object> getAllRequestAttributes() {
+        return new HashMap<String, Object>(requestAttributes);
     }
 
-    public void addSessionAttribute(String key,Object value){
-        sessionAttributes.put(key,value);
+    public Map<String, Object> getAllSessionAttributes() {
+        return new HashMap<String, Object>(sessionAttributes);
     }
-    public Object getSessionAttribute(String key){
+
+    public void addSessionAttribute(String key, Object value) {
+        sessionAttributes.put(key, value);
+    }
+
+    public Object getSessionAttribute(String key) {
         return sessionAttributes.get(key);
     }
 
-    public String getRequestParameter(String key){
+    public String getRequestParameter(String key) {
         return requestParameters.get(key);
     }
 
-    public void removeRequestParameter(String key){
+    public void addRequestParameter(String key, String value) {
+        requestParameters.put(key, value);
+    }
+
+    public void removeRequestParameter(String key) {
         requestParameters.put(key, null);
+    }
+
+    public void addRequestAttribute(String key, Object value) {
+        requestAttributes.put(key, value);
+    }
+
+    public void removeSessionAttribute(String key) {
+        sessionAttributes.put(key, null);
     }
 }
