@@ -62,7 +62,6 @@ public class Servlet extends HttpServlet {
     private void process(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ServiceException {
         String commandName = request.getParameter(COMMAND);
-        System.out.println(commandName);
         if (commandName == null || "".equals(commandName)) {
             response.sendRedirect(PATH + "command=main");
         } else {
