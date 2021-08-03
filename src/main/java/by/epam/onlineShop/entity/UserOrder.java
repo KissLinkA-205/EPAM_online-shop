@@ -4,15 +4,17 @@ import java.util.Date;
 
 public class UserOrder implements Identifiable {
     private long id;
-    private long userId;
     private String address;
     private Date orderDate;
     private Date deliveryDate;
-    private boolean status;
+    private String status;
 
-    UserOrder(long id, long userId, String address, Date orderDate, Date deliveryDate, boolean status) {
+    public static final String TABLE = "UserOrders";
+
+    public UserOrder() {}
+
+    public UserOrder(long id, String address, Date orderDate, Date deliveryDate, String status) {
         this.id = id;
-        this.userId = userId;
         this.address = address;
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
@@ -24,24 +26,40 @@ public class UserOrder implements Identifiable {
         return id;
     }
 
-    public long getUserId() {
-        return userId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getAddress() {
         return address;
     }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public Date getOrderDate() {
         return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
     }
 
     public Date getDeliveryDate() {
         return deliveryDate;
     }
 
-    public boolean isStatus() {
+    public void setDeliveryDate(Date deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public String getStatus() {
         return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
@@ -52,7 +70,6 @@ public class UserOrder implements Identifiable {
 
         UserOrder userOrder = (UserOrder) o;
         return id == userOrder.id &&
-                userId == userOrder.userId &&
                 address.equals(userOrder.address) &&
                 orderDate == userOrder.orderDate &&
                 deliveryDate == userOrder.deliveryDate &&
@@ -64,11 +81,10 @@ public class UserOrder implements Identifiable {
         final int prime = 31;
         int result = 1;
         result = prime * result + (int) id;
-        result = prime * result + (int) userId;
         result = prime * result + ((address == null) ? 0 : address.hashCode());
         result = prime * result + orderDate.hashCode();
         result = prime * result + deliveryDate.hashCode();
-        result = prime * result + Boolean.hashCode(status);
+        result = prime * result + ((status == null) ? 0 : status.hashCode());
         return result;
     }
 }

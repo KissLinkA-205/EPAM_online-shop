@@ -8,8 +8,8 @@ import by.epam.onlineShop.logic.command.CommandResultType;
 
 import javax.servlet.http.HttpServletResponse;
 
-public class GoToRegistrationCommand implements Command {
-    private static final String PAGE = "WEB-INF/view/logup.jsp";
+public class GoToCatalogCommand implements Command {
+    private static final String PAGE = "WEB-INF/view/catalog.jsp";
 
     @Override
     public CommandResult execute(RequestContextHelper helper, HttpServletResponse response) {

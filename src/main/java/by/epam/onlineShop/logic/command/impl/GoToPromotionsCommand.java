@@ -8,7 +8,7 @@ import by.epam.onlineShop.exeptions.ServiceException;
 import by.epam.onlineShop.logic.command.Command;
 import by.epam.onlineShop.logic.command.CommandResult;
 import by.epam.onlineShop.logic.command.CommandResultType;
-import by.epam.onlineShop.logic.service.GoToPromotionsService;
+import by.epam.onlineShop.logic.service.PromotionsService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -17,9 +17,9 @@ public class GoToPromotionsCommand implements Command {
     private static final String PAGE = "WEB-INF/view/promotions.jsp";
     private static final String PROMOTIONS = "promotions";
     private static final String CATEGORIES = "categories";
-    private final GoToPromotionsService promotionService;
+    private final PromotionsService promotionService;
 
-    public GoToPromotionsCommand(GoToPromotionsService promotionService) {
+    public GoToPromotionsCommand(PromotionsService promotionService) {
         this.promotionService = promotionService;
     }
 

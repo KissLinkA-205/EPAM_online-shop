@@ -8,7 +8,7 @@ import by.epam.onlineShop.logic.command.CommandResultType;
 
 import javax.servlet.http.HttpServletResponse;
 
-public class GoToRegistrationCommand implements Command {
+public class GoToLogUpCommand implements Command {
     private static final String PAGE = "WEB-INF/view/logup.jsp";
 
     @Override

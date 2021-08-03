@@ -9,9 +9,14 @@ public class Product implements Identifiable {
     private double price;
     private boolean status;
     private String photo;
+    private long ordersNumber;
 
-    Product(long id, long categoryId, long promotionId, String name, String description,
-            double price, boolean status, String photo) {
+    public static final String TABLE = "Products";
+
+    public Product() {}
+
+    public Product(long id, long categoryId, long promotionId, String name, String description,
+            double price, boolean status, String photo, long ordersNumber) {
         this.id = id;
         this.categoryId = categoryId;
         this.name = name;
@@ -19,6 +24,7 @@ public class Product implements Identifiable {
         this.price = price;
         this.status = status;
         this.photo = photo;
+        this.ordersNumber = ordersNumber;
     }
 
     @Override
@@ -26,32 +32,72 @@ public class Product implements Identifiable {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public long getCategoryId() {
         return categoryId;
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public long getPromotionId() {
         return promotionId;
     }
 
+    public void setPromotionId(long promotionId) {
+        this.promotionId = promotionId;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public double getPrice() {
         return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public boolean isStatus() {
         return status;
     }
 
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     public String getPhoto() {
         return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public long getOrdersNumber() {
+        return ordersNumber;
+    }
+
+    public void setOrdersNumber(long ordersNumber) {
+        this.ordersNumber = ordersNumber;
     }
 
     @Override
@@ -65,7 +111,6 @@ public class Product implements Identifiable {
                 categoryId == product.categoryId &&
                 promotionId == product.promotionId &&
                 name.equals(product.name) &&
-                description.equals(product.description) &&
                 price == product.price &&
                 status == product.status &&
                 photo.equals(product.photo);

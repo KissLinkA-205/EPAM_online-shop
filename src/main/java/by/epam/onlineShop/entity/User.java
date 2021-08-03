@@ -7,7 +7,11 @@ public class User implements Identifiable {
     private String password;
     private long roleId;
 
-    User(long id, long userInformationId, String email, String password, long roleId) {
+    public static final String TABLE = "Users";
+
+    public User() {}
+
+    public User(long id, long userInformationId, String email, String password, long roleId) {
         this.id = id;
         this.userInformationId = userInformationId;
         this.email = email;
@@ -20,16 +24,40 @@ public class User implements Identifiable {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getUserInformationId() {
+        return userInformationId;
+    }
+
+    public void setUserInformationId(long userInformationId) {
+        this.userInformationId = userInformationId;
+    }
+
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public long getRoleId() {
         return roleId;
+    }
+
+    public void setRoleId(long roleId) {
+        this.roleId = roleId;
     }
 
     @Override

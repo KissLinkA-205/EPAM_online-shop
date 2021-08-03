@@ -4,7 +4,11 @@ public class Category implements Identifiable {
     private long id;
     private String categoryName;
 
-    Category(long id, String categoryName) {
+    public static final String TABLE = "Categories";
+
+    public Category() { }
+
+    public Category(long id, String categoryName) {
         this.id = id;
         this.categoryName = categoryName;
     }
@@ -14,8 +18,16 @@ public class Category implements Identifiable {
         return id;
     }
 
-    public String getCategory() {
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getCategoryName() {
         return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     @Override
