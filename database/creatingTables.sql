@@ -63,13 +63,11 @@ CREATE TABLE IF NOT EXISTS Users
 CREATE TABLE IF NOT EXISTS UserOrders
 (
     id              BIGINT UNSIGNED AUTO_INCREMENT,
-    user_id         BIGINT UNSIGNED NOT NULL,
     address         VARCHAR(100) NOT NULL,
     order_date      DATE NOT NULL,
     delivery_date   DATE NOT NULL,
-    status          TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
-    PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES Users (id)
+    status          VARCHAR(15) NOT NULL DEFAULT 'expected',
+    PRIMARY KEY (id)
 );
 
 -- -----------------------------------------------------
@@ -93,7 +91,7 @@ CREATE TABLE IF NOT EXISTS Promotions
     discount         TINYINT(3) NOT NULL,
     beginning_date   DATE NOT NULL,
     expiration_date  DATE NOT NULL,
-    orders_number    BIGINT UNSIGNED NOT NULL,
+    photo            VARCHAR(150) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -110,8 +108,9 @@ CREATE TABLE IF NOT EXISTS Products
     price          DOUBLE UNSIGNED NOT NULL,
     status         TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
     photo          VARCHAR(150) NOT NULL,
+    orders_number  INT UNSIGNED NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (categorie_id) REFERENCES Categories (id),
+    FOREIGN KEY (category_id) REFERENCES Categories (id),
     FOREIGN KEY (promotion_id) REFERENCES Promotions (id)
 );
 
@@ -122,9 +121,11 @@ CREATE TABLE IF NOT EXISTS Orders
 (
     id             BIGINT UNSIGNED AUTO_INCREMENT,
     product_id     BIGINT UNSIGNED NOT NULL,
+    user_id        BIGINT UNSIGNED NOT NULL,
     userOrder_id   BIGINT UNSIGNED,
     number         SMALLINT UNSIGNED NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (product_id) REFERENCES Products (id),
-    FOREIGN KEY (userOrder_id) REFERENCES UserOrders (id)
+    FOREIGN KEY (userOrder_id) REFERENCES UserOrders (id),
+    FOREIGN KEY (user_id) REFERENCES Users (id)
 );

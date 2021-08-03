@@ -17,6 +17,15 @@ VALUES ('Victor', 'Petrov', 'Andreevich', 375293303651);
 INSERT INTO UserInformation (name, surname, patronymic, phone)
 VALUES ('Ekaterina', 'Kozlova', 'Romanovna', 375442114982);
 
+/* todo --------------filling in the table "UserInformation"---------------------*/
+INSERT INTO promotions(name, description, discount, beginning_date, expiration_date, photo)
+VALUES ('Summer sale', 'Buy items at a discount during the Summer Sale!', 30, '2021-06-01', '2021-08-30',
+        'promotions/summer_sale.jpg');
+
+INSERT INTO promotions(name, description, discount, beginning_date, expiration_date, photo)
+VALUES ('Listen music', '"Listen to music" action. Buy headphones at a discount and
+listen to your favorite music wherever you want!', 50, '2021-07-24', '2021-08-24', 'promotions/listen_music.jpg');
+
 /* todo --------------filling in the table "BankCards"---------------------*/
 INSERT INTO BankCards (userInformation_id, card_number, expiration_year, explaration_month, card_owner)
 VALUES (2, 5106211010255079, 23, 07, 'Victor Petrov');
@@ -38,14 +47,14 @@ INSERT INTO Users (userInformation_id, role_id, email, password)
 VALUES (3, 1, '17ekaterina17@mail.ru', SHA1('000Kate'));
 
 /* todo --------------filling in the table "UserOrders"---------------------*/
-INSERT INTO UserOrders (user_id, address, order_date, delivery_date)
-VALUES (2, 'Minsk city, Red Street 22', '2021-06-18', '2021-08-21');
+INSERT INTO UserOrders (address, order_date, delivery_date, status)
+VALUES ('Minsk city, Red Street 22', '2021-06-18', '2021-08-21', 'expected');
 
-INSERT INTO UserOrders (user_id, address, order_date, delivery_date)
-VALUES (3, 'Minsk city, Yakuba Kolas 28', '2021-06-16', '2021-08-24');
+INSERT INTO UserOrders (address, order_date, delivery_date, status)
+VALUES ('Minsk city, Yakuba Kolas 28', '2021-06-16', '2021-08-24','expected');
 
-INSERT INTO UserOrders (user_id, address, order_date, delivery_date)
-VALUES (3, 'Minsk city, Yakuba Kolas 28', '2021-06-17', '2021-08-27');
+INSERT INTO UserOrders (address, order_date, delivery_date, status)
+VALUES ('Minsk city, Yakuba Kolas 28', '2021-06-17', '2021-08-27', 'expected');
 
 /* todo --------------filling in the table "Categories"---------------------*/
 INSERT INTO Categories (category)
@@ -76,14 +85,14 @@ VALUES (3, 'Xiaomi Mi True Wireless Earbuds Basic 2 TWSEJ061LS', 42.00, 0,
         'headphones/Xiaomi_Mi_True_Wireless_Earbuds_Basic_2_TWSEJ061LS.jpg', 1);
 
 /* todo --------------filling in the table "Orders"---------------------*/
-INSERT INTO Orders (product_id, userOrder_id, number)
-VALUES (1, 1, 1);
+INSERT INTO Orders (product_id, user_id, userOrder_id, number)
+VALUES (1, 2, 1, 1);
 
-INSERT INTO Orders (product_id, userOrder_id, number)
-VALUES (4, 1, 1);
+INSERT INTO Orders (product_id, user_id, userOrder_id, number)
+VALUES (4, 3, 1, 1);
 
-INSERT INTO Orders (product_id, userOrder_id, number)
-VALUES (2, 2, 1);
+INSERT INTO Orders (product_id, user_id, userOrder_id, number)
+VALUES (2, 3, 2, 1);
 
-INSERT INTO Orders (product_id, userOrder_id, number)
-VALUES (5, 3, 2);
+INSERT INTO Orders (product_id, user_id, userOrder_id, number)
+VALUES (5, 2, 3, 2);
