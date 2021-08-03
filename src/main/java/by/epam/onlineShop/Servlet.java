@@ -3,6 +3,7 @@ package by.epam.onlineShop;
 import by.epam.onlineShop.connection.ConnectionPool;
 import by.epam.onlineShop.context.RequestContextHelper;
 import by.epam.onlineShop.exeptions.ConnectionException;
+import by.epam.onlineShop.exeptions.ServiceException;
 import by.epam.onlineShop.logic.command.Command;
 import by.epam.onlineShop.logic.command.CommandFactory;
 import by.epam.onlineShop.logic.command.CommandResult;
@@ -41,20 +42,29 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        process(request, response);
+        try {
+            process(request, response);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        process(request, response);
+        try {
+            process(request, response);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ServiceException {
         String commandName = request.getParameter(COMMAND);
+        System.out.println(commandName);
         if (commandName == null || "".equals(commandName)) {
-            request.getRequestDispatcher("WEB-INF/view/main.jsp").forward(request, response);
+            response.sendRedirect(PATH + "command=main");
         } else {
             Command command = CommandFactory.createCommand(commandName);
             RequestContextHelper contextHelper = new RequestContextHelper(request);
