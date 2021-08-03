@@ -54,6 +54,24 @@
                             <fmt:message bundle="${loc}" key="language.contacts"/>
                         </a>
                     </li>
+                    <c:if test="${role.name == 'admin'}">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                               role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <fmt:message bundle="${loc}" key="language.control"/>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                <a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/online-shop?command=addProduct"><fmt:message bundle="${loc}" key="language.addProduct"/></a>
+                                <a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/online-shop?command=addPromotion"><fmt:message bundle="${loc}" key="language.addPromotion"/></a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/online-shop?command=viewOrders"><fmt:message bundle="${loc}" key="language.viewOrders"/></a>
+                            </div>
+                        </li>
+                    </c:if>
                 </ul>
                 <ul class="navbar-nav">
                     <c:choose>
@@ -129,7 +147,7 @@
                                     <a class="dropdown-item"
                                        href="${pageContext.request.contextPath}/online-shop?command=profile">
                                         <fmt:message bundle="${loc}" key="language.profile"/></a>
-                                    <a class="dropdown-item" href="#"><fmt:message bundle="${loc}"
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/online-shop?command=myOrders"><fmt:message bundle="${loc}"
                                                                                    key="language.myOrders"/></a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item"
@@ -139,7 +157,7 @@
                             </li>
                             <li class=" nav-item">
                                 <a class="nav-link"
-                                   href="${pageContext.request.contextPath}/online-shop?command=bucket">
+                                   href="${pageContext.request.contextPath}/online-shop?command=basket">
                                     <button type="button" class="btn btn-primary">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
                                             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>

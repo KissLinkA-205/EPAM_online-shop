@@ -12,17 +12,7 @@
 <html>
 <jsp:include page="fragments/header.jsp"/>
 <title>Promotions | Online-shop</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/promotions.css"/>
 <body>
-<%--<div class="promotions-center">--%>
-<%--    <c:forEach var="promotion" items="${promotions}">--%>
-<%--        <a class="promotions-titles"><c:out value="${promotion.name}"/></a>--%>
-<%--        <a class="promotion-information">  (<c:out value="${promotion.beginningDate}"/> - <c:out value="${promotion.expirationDate}"/>)</a>--%>
-<%--        <hr width=52%">--%>
-<%--        <img class="promotions-images" src="static/images/<c:out value="${promotion.photo}"/>"/>--%>
-<%--        <br/><br/><br/><br/>--%>
-<%--    </c:forEach>--%>
-<%--</div>--%>
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="localization.language" var="loc"/>
 <div class="container">
