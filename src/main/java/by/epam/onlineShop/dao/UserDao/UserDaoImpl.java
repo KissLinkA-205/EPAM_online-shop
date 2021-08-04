@@ -10,8 +10,9 @@ import by.epam.onlineShop.mapper.RowMapperFactory;
 import java.util.Optional;
 
 public class UserDaoImpl extends AbstractDao<User> implements UserDao {
-    private static final String FIND_BY_LOGIN_AND_PASSWORD = "SELECT * FROM " + User.TABLE + " WHERE email=? and password=SHA1(?)";
-    private static final String ADD_USER = "INSERT INTO" +  User.TABLE + " (email, password, role_id, userInformation_id) VALUES (?, ?, ?, ?)";
+    private static final String FIND_BY_EMAIL_AND_PASSWORD = "SELECT * FROM " + User.TABLE + " WHERE email=? and password=SHA1(?)";
+    private static final String FIND_BY_EMAIL = "SELECT * FROM " + User.TABLE + " WHERE email=?";
+    private static final String ADD_USER = "INSERT INTO " +  User.TABLE + " (email, password, role_id, userInformation_id) VALUES (?, ?, ?, ?)";
 
 
     public UserDaoImpl(ProxyConnection connection) {
@@ -19,12 +20,17 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     }
 
     @Override
-    public Optional<User> findUserByLoginAndPassword(String login, String password) throws DaoException {
-        return executeQueryForSingleResult(FIND_BY_LOGIN_AND_PASSWORD, login, password);
+    public Optional<User> findUserByEmailAndPassword(String email, String password) throws DaoException {
+        return executeQueryForSingleResult(FIND_BY_EMAIL_AND_PASSWORD, email, password);
     }
 
     @Override
-    public long addUser(String email, String password, long userInformationId, long roleId) throws DaoException {
+    public long addUser(String email, String password, long roleId, long userInformationId) throws DaoException {
         return executeInsertQuery(ADD_USER, email, password, roleId, userInformationId);
+    }
+
+    @Override
+    public Optional<User> findUserByEmail(String email) throws DaoException {
+        return executeQueryForSingleResult(FIND_BY_EMAIL, email);
     }
 }

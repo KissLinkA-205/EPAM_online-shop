@@ -29,7 +29,7 @@ public class CommandFactory {
             case PROFILE:
                 return new GoToProfileCommand(new ProfileService(new DaoHelperFactory()));
             case REGISTRATION:
-                return new GoToRegistrationCommand();
+                return new LogUpCommand(new LogUpService(new DaoHelperFactory()));
             case LOG_IN:
                 return new GoToLoginCommand();
             case CONTACTS:
@@ -37,13 +37,13 @@ public class CommandFactory {
             case PROMOTIONS:
                 return new GoToPromotionsCommand(new PromotionsService(new DaoHelperFactory()));
             case CATALOG:
-                return new GoToCatalogCommand();
+                return new GoToCatalogCommand(new CatalogService(new DaoHelperFactory()));
             case CHECK_LOGIN:
                 return new LogInCommand(new LoginService(new DaoHelperFactory()));
             case LOG_OUT:
                 return new LogOutCommand();
             case LOG_UP:
-                return new LogUpCommand(new LogUpService(new DaoHelperFactory()));
+                return new GoToLogUpCommand();
             case MY_ORDERS:
                 return new GoToMyOrdersCommand(new OrdersService(new DaoHelperFactory()));
             case BASKET:

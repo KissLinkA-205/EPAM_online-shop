@@ -13,7 +13,9 @@ public class Product implements Identifiable {
 
     public static final String TABLE = "Products";
 
-    public Product() {}
+    public Product() {
+        this.promotionId = 0;
+    }
 
     public Product(long id, long categoryId, long promotionId, String name, String description,
             double price, boolean status, String photo, long ordersNumber) {

@@ -39,7 +39,8 @@
                         </a>
                         <div class="dropdown-menu">
                             <c:forEach var="category" items="${categories}">
-                                <a class="dropdown-item" href="#"><c:out value="${category.categoryName}"/></a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/online-shop?command=catalog&categoryId=${category.id}">
+                                    <c:out value="${category.categoryName}"/></a>
                             </c:forEach>
                         </div>
                     </li>

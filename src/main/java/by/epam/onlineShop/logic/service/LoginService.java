@@ -21,10 +21,10 @@ public class LoginService {
         this.daoHelperFactory = daoHelperFactory;
     }
 
-    public Optional<User> login(String password, String login) throws ServiceException {
+    public Optional<User> login(String password, String email) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.createDaoHelper()) {
             UserDao dao = daoHelper.createUserDao();
-            return dao.findUserByLoginAndPassword(login, password);
+            return dao.findUserByEmailAndPassword(email, password);
         } catch (DaoException | ConnectionException e) {
             throw new ServiceException(e.getMessage(), e);
         }

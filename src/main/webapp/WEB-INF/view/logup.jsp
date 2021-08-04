@@ -29,7 +29,18 @@
             <c:if test="${sessionScope.user == null}">
             <h1 class="mt-5 fw-bold"><fmt:message bundle="${loc}" key="language.logUp"/></h1>
 
-            <form action="${pageContext.request.contextPath}/controller?command=signup" method="post">
+            <c:if test="${message == 'error'}">
+                <div class="alert alert-danger fade show " role="alert">
+                    <fmt:message bundle="${loc}" key="language.registrationFailed"/>
+                </div>
+            </c:if>
+            <c:if test="${message == 'ok'}">
+                <div class="alert alert-success fade show " role="alert">
+                    <fmt:message bundle="${loc}" key="language.successfullyRegistration"/>
+                </div>
+            </c:if>
+
+            <form action="${pageContext.request.contextPath}/online-shop?command=registration" method="post">
                 <div class="row mb-3">
                     <div class="col-sm mb-3">
                         <label for="name" class="form-label"><fmt:message bundle="${loc}" key="language.name"/></label>
@@ -75,14 +86,14 @@
                 <div class="mb-3">
                     <label for="password-first" class="form-label"><fmt:message bundle="${loc}"
                                                                                 key="language.password"/></label>
-                    <input type="password" class="form-control" name="password" id="password-first"
+                    <input type="password" class="form-control" name="password-first" id="password-first"
                            placeholder="password" required
                            minlength="8">
                 </div>
                 <div class="mb-3">
                     <label for="password-second" class="form-label"><fmt:message bundle="${loc}"
                                                                                  key="language.confirmPassword"/></label>
-                    <input type="password" class="form-control" name="password" id="password-second"
+                    <input type="password" class="form-control" name="password-second" id="password-second"
                            placeholder="password" required
                            minlength="8">
                 </div>
