@@ -4,7 +4,6 @@ public class Category implements Identifiable {
     private long id;
     private String categoryName;
 
-    public static final String TABLE = "Categories";
 
     public Category() { }
 
@@ -52,6 +51,10 @@ public class Category implements Identifiable {
 
     @Override
     public String toString() {
-        return categoryName;
+        final StringBuilder result = new StringBuilder("Category{");
+        result.append("id=").append(id);
+        result.append(", categoryName='").append(categoryName).append('\'');
+        result.append('}');
+        return result.toString();
     }
 }

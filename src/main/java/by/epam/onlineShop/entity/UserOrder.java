@@ -9,8 +9,6 @@ public class UserOrder implements Identifiable {
     private Date deliveryDate;
     private String status;
 
-    public static final String TABLE = "UserOrders";
-
     public UserOrder() {}
 
     public UserOrder(long id, String address, Date orderDate, Date deliveryDate, String status) {
@@ -86,5 +84,17 @@ public class UserOrder implements Identifiable {
         result = prime * result + deliveryDate.hashCode();
         result = prime * result + ((status == null) ? 0 : status.hashCode());
         return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder result = new StringBuilder("UserOrder{");
+        result.append("id=").append(id);
+        result.append(", address='").append(address).append('\'');
+        result.append(", orderDate=").append(orderDate);
+        result.append(", deliveryDate=").append(deliveryDate);
+        result.append(", status='").append(status).append('\'');
+        result.append('}');
+        return result.toString();
     }
 }

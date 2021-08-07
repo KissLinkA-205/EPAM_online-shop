@@ -7,8 +7,6 @@ public class Order implements Identifiable {
     private long userOrderId;
     private int number;
 
-    public static final String TABLE = "Orders";
-
     public Order() {}
 
     public Order(long id, long productId, long userId, long userOrderId, int number) {
@@ -84,5 +82,17 @@ public class Order implements Identifiable {
         result = prime * result + (int) userOrderId;
         result = prime * result + number;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder result = new StringBuilder("Order{");
+        result.append("id=").append(id);
+        result.append(", productId=").append(productId);
+        result.append(", userId=").append(userId);
+        result.append(", userOrderId=").append(userOrderId);
+        result.append(", number=").append(number);
+        result.append('}');
+        return result.toString();
     }
 }

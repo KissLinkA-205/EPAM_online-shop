@@ -11,13 +11,11 @@ public class Product implements Identifiable {
     private String photo;
     private long ordersNumber;
 
-    public static final String TABLE = "Products";
-
     public Product() {
         this.promotionId = 0;
     }
 
-    public Product(long id, long categoryId, long promotionId, String name, String description,
+    public Product(long id, long categoryId, String name, String description,
             double price, boolean status, String photo, long ordersNumber) {
         this.id = id;
         this.categoryId = categoryId;
@@ -113,9 +111,11 @@ public class Product implements Identifiable {
                 categoryId == product.categoryId &&
                 promotionId == product.promotionId &&
                 name.equals(product.name) &&
+                description.equals(product.description) &&
                 price == product.price &&
                 status == product.status &&
-                photo.equals(product.photo);
+                photo.equals(product.photo) &&
+                ordersNumber == product.ordersNumber;
     }
 
     @Override
@@ -130,6 +130,23 @@ public class Product implements Identifiable {
         result = prime * result + (int) price;
         result = prime * result + Boolean.hashCode(status);
         result = prime * result + ((photo == null) ? 0 : photo.hashCode());
+        result = prime * result + (int) ordersNumber;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder result = new StringBuilder("Product{");
+        result.append("id=").append(id);
+        result.append(", categoryId=").append(categoryId);
+        result.append(", promotionId=").append(promotionId);
+        result.append(", name='").append(name).append('\'');
+        result.append(", description='").append(description).append('\'');
+        result.append(", price=").append(price);
+        result.append(", status=").append(status);
+        result.append(", photo='").append(photo).append('\'');
+        result.append(", ordersNumber=").append(ordersNumber);
+        result.append('}');
+        return result.toString();
     }
 }

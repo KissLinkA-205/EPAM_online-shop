@@ -7,8 +7,6 @@ public class UserInformation implements Identifiable {
     private String patronymic;
     private long phone;
 
-    public static final String TABLE = "UserInformation";
-
     public UserInformation() {}
 
     public UserInformation(long id, String name, String surname, String patronymic, long phone) {
@@ -84,5 +82,17 @@ public class UserInformation implements Identifiable {
         result = prime * result + ((patronymic == null) ? 0 : patronymic.hashCode());
         result = prime * result + (int) phone;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder result = new StringBuilder("UserInformation{");
+        result.append("id=").append(id);
+        result.append(", name='").append(name).append('\'');
+        result.append(", surname='").append(surname).append('\'');
+        result.append(", patronymic='").append(patronymic).append('\'');
+        result.append(", phone=").append(phone);
+        result.append('}');
+        return result.toString();
     }
 }

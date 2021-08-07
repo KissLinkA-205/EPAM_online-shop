@@ -4,8 +4,6 @@ public class Role implements Identifiable {
     private long id;
     private String name;
 
-    public static final String TABLE = "Roles";
-
     public Role() {
     }
 

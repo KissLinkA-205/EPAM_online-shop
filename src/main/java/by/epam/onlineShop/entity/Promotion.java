@@ -12,8 +12,6 @@ public class Promotion implements Serializable, Identifiable {
     private Date expirationDate;
     private String photo;
 
-    public static final String TABLE = "Promotions";
-
     public Promotion() {}
 
     public Promotion(long id, String name, String description, byte discount, Date beginningDate, Date expirationDate, String photo) {
@@ -111,5 +109,19 @@ public class Promotion implements Serializable, Identifiable {
         result = prime * result + expirationDate.hashCode();
         result = prime * result + ((photo == null) ? 0 : photo.hashCode());
         return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder result = new StringBuilder("Promotion{");
+        result.append("id=").append(id);
+        result.append(", name='").append(name).append('\'');
+        result.append(", description='").append(description).append('\'');
+        result.append(", discount=").append(discount);
+        result.append(", beginningDate=").append(beginningDate);
+        result.append(", expirationDate=").append(expirationDate);
+        result.append(", photo='").append(photo).append('\'');
+        result.append('}');
+        return result.toString();
     }
 }

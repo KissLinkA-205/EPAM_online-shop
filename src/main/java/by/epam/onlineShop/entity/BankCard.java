@@ -8,7 +8,9 @@ public class BankCard implements Identifiable {
     private int expirationYear;
     private String cardOwner;
 
-    BankCard(long id, long userInformationId, long cardNumber, int expirationMonth, int expirationYear, String cardOwner) {
+    public BankCard() { }
+
+    public BankCard(long id, long userInformationId, long cardNumber, int expirationMonth, int expirationYear, String cardOwner) {
         this.id = id;
         this.userInformationId = userInformationId;
         this.cardNumber = cardNumber;
@@ -22,24 +24,48 @@ public class BankCard implements Identifiable {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public long getUserInformationId() {
         return userInformationId;
+    }
+
+    public void setUserInformationId(long userInformationId) {
+        this.userInformationId = userInformationId;
     }
 
     public long getCardNumber() {
         return cardNumber;
     }
 
+    public void setCardNumber(long cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
     public int getExpirationMonth() {
         return expirationMonth;
+    }
+
+    public void setExpirationMonth(int expirationMonth) {
+        this.expirationMonth = expirationMonth;
     }
 
     public int getExpirationYear() {
         return expirationYear;
     }
 
+    public void setExpirationYear(int expirationYear) {
+        this.expirationYear = expirationYear;
+    }
+
     public String getCardOwner() {
         return cardOwner;
+    }
+
+    public void setCardOwner(String cardOwner) {
+        this.cardOwner = cardOwner;
     }
 
     @Override
@@ -68,5 +94,18 @@ public class BankCard implements Identifiable {
         result = prime * result + expirationYear;
         result = prime * result + ((cardOwner == null) ? 0 : cardOwner.hashCode());
         return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder result = new StringBuilder("BankCard{");
+        result.append("id=").append(id);
+        result.append(", userInformationId=").append(userInformationId);
+        result.append(", cardNumber=").append(cardNumber);
+        result.append(", expirationMonth=").append(expirationMonth);
+        result.append(", expirationYear=").append(expirationYear);
+        result.append(", cardOwner='").append(cardOwner).append('\'');
+        result.append('}');
+        return result.toString();
     }
 }

@@ -7,8 +7,6 @@ public class User implements Identifiable {
     private String password;
     private long roleId;
 
-    public static final String TABLE = "Users";
-
     public User() {}
 
     public User(long id, long userInformationId, String email, String password, long roleId) {
@@ -84,5 +82,17 @@ public class User implements Identifiable {
         result = prime * result + ((password == null) ? 0 : password.hashCode());
         result = prime * result + (int) roleId;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder result = new StringBuilder("User{");
+        result.append("id=").append(id);
+        result.append(", userInformationId=").append(userInformationId);
+        result.append(", email='").append(email).append('\'');
+        result.append(", password='").append(password).append('\'');
+        result.append(", roleId=").append(roleId);
+        result.append('}');
+        return result.toString();
     }
 }
