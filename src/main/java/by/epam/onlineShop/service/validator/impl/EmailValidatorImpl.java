@@ -1,6 +1,8 @@
-package by.epam.onlineShop.logic.validator;
+package by.epam.onlineShop.service.validator.impl;
 
-public class EmailValidator extends AbstractValidator {
+import by.epam.onlineShop.service.validator.AbstractValidator;
+
+public class EmailValidatorImpl extends AbstractValidator {
     private static final String EMAIL_REGEX = "^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$";
 
     @Override
