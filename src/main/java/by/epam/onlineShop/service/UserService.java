@@ -1,9 +1,10 @@
 package by.epam.onlineShop.service;
 
-import by.epam.onlineShop.entity.Role;
+import by.epam.onlineShop.entity.Order;
 import by.epam.onlineShop.entity.User;
 import by.epam.onlineShop.exeptions.ServiceException;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
@@ -40,4 +41,13 @@ public interface UserService {
      * @throws ServiceException
      */
     Optional<User> retrieveUserById(long userId) throws ServiceException;
+
+    /**
+     * Method to get users from orders
+     *
+     * @param orders List of orders
+     * @return List of users
+     * @throws ServiceException
+     */
+    List<User> getUsersFromOrders(List<Order> orders) throws ServiceException;
 }

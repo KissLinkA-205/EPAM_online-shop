@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,9 +80,31 @@ public class UserOrderServiceImpl implements UserOrderService {
             userOrderDao.save(userOrder);
             return true;
         } catch (DaoException | ParseException e) {
-            logger.error("Unable to update user order status!");
+            logger.error("Unable to add new user order!");
             throw new ServiceException(e.getMessage(), e);
         }
+    }
+
+    @Override
+    public List<UserOrder> getUserOrdersFromOrders(List<Order> orders) throws ServiceException {
+        List<UserOrder> userOrders = new LinkedList<>();
+
+        for (Order order : orders) {
+            Optional<UserOrder> userOrder = retrieveUserOrderById(order.getUserOrderId());
+            if (userOrder.isPresent()) {
+                boolean checkIfOrderExistFlag = false;
+                for (UserOrder value : userOrders) {
+                    if (value.getId() == userOrder.get().getId()) {
+                        checkIfOrderExistFlag = true;
+                    }
+                }
+                if (!checkIfOrderExistFlag) {
+                    userOrders.add(userOrder.get());
+                }
+            }
+        }
+
+        return userOrders;
     }
 
     private boolean isDateValid(Date deliveryDate, Date currentDate) {

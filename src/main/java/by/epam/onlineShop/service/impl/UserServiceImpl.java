@@ -1,16 +1,16 @@
 package by.epam.onlineShop.service.impl;
 
 import by.epam.onlineShop.dao.DaoFactory;
-import by.epam.onlineShop.dao.ProductDao;
 import by.epam.onlineShop.dao.UserDao;
 import by.epam.onlineShop.dao.impl.RoleDaoImpl;
 import by.epam.onlineShop.dao.impl.UserInformationDaoImpl;
-import by.epam.onlineShop.entity.Product;
+import by.epam.onlineShop.entity.Order;
 import by.epam.onlineShop.entity.Role;
 import by.epam.onlineShop.entity.User;
 import by.epam.onlineShop.entity.UserInformation;
 import by.epam.onlineShop.exeptions.DaoException;
 import by.epam.onlineShop.exeptions.ServiceException;
+import by.epam.onlineShop.service.ServiceFactory;
 import by.epam.onlineShop.service.UserService;
 import by.epam.onlineShop.service.validator.Validator;
 import by.epam.onlineShop.service.validator.ValidatorFactory;
@@ -18,6 +18,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
@@ -88,6 +90,22 @@ public class UserServiceImpl implements UserService {
             logger.error("Unable to retrieve user by id!");
             throw new ServiceException(e.getMessage(), e);
         }
+    }
+
+    @Override
+    public List<User> getUsersFromOrders(List<Order> orders) throws ServiceException {
+        List<User> users = new LinkedList<>();
+
+        for (Order order : orders) {
+            Optional<User> user = retrieveUserById(order.getUserId());
+            if (user.isPresent()) {
+                if (!users.contains(user.get())) {
+                    users.add(user.get());
+                }
+            }
+        }
+
+        return users;
     }
 
     private boolean isEmailValid(String email) {

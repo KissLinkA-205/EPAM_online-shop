@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface UserOrderService {
 
     /**
-     * Method to retrieve user order by ID
+     * Method to retrieve user orders by ID
      *
      * @param userOrderId ID of user order to retrieve
      * @return optional of UserOrder
@@ -19,7 +19,7 @@ public interface UserOrderService {
     Optional<UserOrder> retrieveUserOrderById(long userOrderId) throws ServiceException;
 
     /**
-     * Method to retrieve user order by status
+     * Method to retrieve user orders by status
      *
      * @param status status of user order
      * @return List of user orders
@@ -47,4 +47,13 @@ public interface UserOrderService {
      * @throws ServiceException
      */
     boolean addNewUserOrder(List<Order> orders, String address, String deliveryDateString) throws ServiceException;
+
+    /**
+     * Method to get user orders from orders
+     *
+     * @param orders List of orders
+     * @return List of user orders
+     * @throws ServiceException
+     */
+    List<UserOrder> getUserOrdersFromOrders(List<Order> orders) throws ServiceException;
 }

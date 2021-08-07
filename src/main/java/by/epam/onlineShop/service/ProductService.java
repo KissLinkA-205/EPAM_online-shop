@@ -1,5 +1,6 @@
 package by.epam.onlineShop.service;
 
+import by.epam.onlineShop.entity.Order;
 import by.epam.onlineShop.entity.Product;
 import by.epam.onlineShop.exeptions.ServiceException;
 
@@ -25,4 +26,13 @@ public interface ProductService {
      * @throws ServiceException
      */
     Optional<Product> retrieveProductById(long productId) throws ServiceException;
+
+    /**
+     * Method to get products from orders
+     *
+     * @param orders List of orders
+     * @return List of products
+     * @throws ServiceException
+     */
+    List<Product> getProductsFromOrders(List<Order> orders) throws ServiceException;
 }

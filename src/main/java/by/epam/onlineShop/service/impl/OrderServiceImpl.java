@@ -7,6 +7,7 @@ import by.epam.onlineShop.dao.impl.PromotionDaoImpl;
 import by.epam.onlineShop.entity.Order;
 import by.epam.onlineShop.entity.Product;
 import by.epam.onlineShop.entity.Promotion;
+import by.epam.onlineShop.entity.UserOrder;
 import by.epam.onlineShop.exeptions.DaoException;
 import by.epam.onlineShop.exeptions.ServiceException;
 import by.epam.onlineShop.service.OrderService;
@@ -15,6 +16,7 @@ import by.epam.onlineShop.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +29,19 @@ public class OrderServiceImpl implements OrderService {
             OrderDao orderDao = DaoFactory.getInstance().getOrderDao();
             List<Order> result = null;
             result = orderDao.findByUserWithoutUserOrder(userId);
+            return result;
+        } catch (DaoException e) {
+            logger.error("Unable to retrieve orders by user id without user order!");
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public List<Order> retrieveOrdersByUser(long userId) throws ServiceException {
+        try {
+            OrderDao orderDao = DaoFactory.getInstance().getOrderDao();
+            List<Order> result = null;
+            result = orderDao.findByUser(userId);
             return result;
         } catch (DaoException e) {
             logger.error("Unable to retrieve orders by user id without user order!");
@@ -109,6 +124,20 @@ public class OrderServiceImpl implements OrderService {
             logger.error("Unable to calculate total cost of orders!");
             throw new ServiceException(e.getMessage(), e);
         }
+    }
+
+    @Override
+    public List<Order> getOrdersFromUserOrders(List<UserOrder> userOrders) throws ServiceException {
+        List<Order> orders = new LinkedList<>();
+
+        for (UserOrder userOrder : userOrders) {
+            List<Order> order = retrieveOrdersByUserOrder(userOrder.getId());
+            if (!order.isEmpty()) {
+                orders.addAll(order);
+            }
+        }
+
+        return orders;
     }
 
     private Order buildOrder(long userId, long productId, int number) {

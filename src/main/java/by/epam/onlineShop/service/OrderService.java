@@ -1,6 +1,7 @@
 package by.epam.onlineShop.service;
 
 import by.epam.onlineShop.entity.Order;
+import by.epam.onlineShop.entity.UserOrder;
 import by.epam.onlineShop.exeptions.ServiceException;
 
 import java.util.List;
@@ -15,6 +16,15 @@ public interface OrderService {
      * @throws ServiceException
      */
     List<Order> retrieveOrdersByUserWithoutUserOrder(long userId) throws ServiceException;
+
+    /**
+     * Method to retrieve orders by user ID
+     *
+     * @param userId ID of user
+     * @return List of orders
+     * @throws ServiceException
+     */
+    List<Order> retrieveOrdersByUser(long userId) throws ServiceException;
 
     /**
      * Method to retrieve orders by user order
@@ -53,4 +63,13 @@ public interface OrderService {
      * @throws ServiceException
      */
     double calculateTotalCost(List<Order> orders) throws ServiceException;
+
+    /**
+     * Method to get orders from user orders
+     *
+     * @param userOrders List of user orders
+     * @return List of orders
+     * @throws ServiceException
+     */
+    List<Order> getOrdersFromUserOrders(List<UserOrder> userOrders) throws ServiceException;
 }
