@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration>
+    <Properties>
+        <Property name="property_console">%d{HH:mm:ss} %-5level %logger{1} - %msg%n</Property>
+        <Property name="property_file">%d{yyyy-MM-dd HH:mm:ss} %-5level [%t] %logger{6} - %msg%n</Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${property_console}"/>
+        </Console>
+        <File name="File" fileName="logs/online-shop.log" append="true"
+              filePattern="logs/${date:yyyy-MM-dd}/%d{yyyy-MM-dd_HH-mm}.txt">
+            <PatternLayout pattern="${property_file}"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="all">
+            <AppenderRef ref="File"/>
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
