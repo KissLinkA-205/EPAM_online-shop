@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>main</servlet-name>
-        <servlet-class>by.epam.onlineShop.Servlet</servlet-class>
+        <servlet-class>by.epam.onlineShop.controller.Controller</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -26,7 +26,7 @@
 
     <filter>
         <filter-name>languageFilter</filter-name>
-        <filter-class>by.epam.onlineShop.filter.LanguageFilter</filter-class>
+        <filter-class>by.epam.onlineShop.controller.filter.LanguageFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>languageFilter</filter-name>
