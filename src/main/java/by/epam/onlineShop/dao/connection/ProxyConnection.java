@@ -1,4 +1,4 @@
-package by.epam.onlineShop.connection;
+package by.epam.onlineShop.dao.connection;
 
 import by.epam.onlineShop.exeptions.ConnectionException;
 
