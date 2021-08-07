@@ -1,6 +1,7 @@
 package by.epam.onlineShop.dao;
 
 import by.epam.onlineShop.dao.connection.ConnectionPool;
+import by.epam.onlineShop.dao.connection.ProxyConnection;
 import by.epam.onlineShop.dao.mapper.RowMapper;
 import by.epam.onlineShop.entity.Identifiable;
 import by.epam.onlineShop.exeptions.DaoException;
@@ -75,10 +76,12 @@ public class AbstractQueryExecutor<T extends Identifiable> {
 
     private PreparedStatement createStatement(String query, Object... params) throws DaoException {
         try {
-            PreparedStatement preparedStatement = ConnectionPool.getInstance().getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ProxyConnection proxyConnection = ConnectionPool.getInstance().getConnection();
+            PreparedStatement preparedStatement = proxyConnection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             for (int i = 0; i < params.length; i++) {
                 preparedStatement.setObject(i + 1, params[i]);
             }
+            ConnectionPool.getInstance().releaseConnection(proxyConnection);
             return preparedStatement;
         } catch (SQLException e) {
             throw new DaoException(e.getMessage(), e);

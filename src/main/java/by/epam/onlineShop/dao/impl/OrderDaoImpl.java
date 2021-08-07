@@ -23,22 +23,22 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     }
 
     @Override
-    public List<Order> findOrdersByUser(long userId) throws DaoException {
+    public List<Order> findByUser(long userId) throws DaoException {
         return executeQuery(FIND_ORDERS_BY_USER_ID_QUERY, userId);
     }
 
     @Override
-    public List<Order> findOrdersByUserOrder(long userOrderId) throws DaoException {
+    public List<Order> findByUserOrder(long userOrderId) throws DaoException {
         return executeQuery(FIND_ORDERS_BY_USER_ORDER_ID_QUERY, userOrderId);
     }
 
     @Override
-    public List<Order> findOrdersByUserWithoutUserOrder(long userId) throws DaoException {
+    public List<Order> findByUserWithoutUserOrder(long userId) throws DaoException {
         return executeQuery(FIND_ORDERS_BY_USER_ID_WITHOUT_USER_ORDER_QUERY, userId);
     }
 
     @Override
-    public List<Order> findOrdersByUserAndProductWithoutUserOrder(long userId, long productId) throws DaoException {
+    public List<Order> findByUserAndProductWithoutUserOrder(long userId, long productId) throws DaoException {
         return executeQuery(FIND_ORDERS_BY_USER_ID_AND_USER_ORDER_ID_WITHOUT_USER_ORDER_QUERY, userId, productId);
     }
 

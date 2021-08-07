@@ -14,7 +14,7 @@ public interface OrderDao extends Dao<Order> {
      * @return List of orders
      * @throws DaoException
      */
-    List<Order> findOrdersByUserOrder(long userOrderId) throws DaoException;
+    List<Order> findByUserOrder(long userOrderId) throws DaoException;
 
     /**
      * Method to get orders by userId in data base
@@ -23,7 +23,7 @@ public interface OrderDao extends Dao<Order> {
      * @return List of orders
      * @throws DaoException
      */
-    List<Order> findOrdersByUser(long userId) throws DaoException;
+    List<Order> findByUser(long userId) throws DaoException;
 
     /**
      * Method to get orders by userId where user order is null in data base
@@ -32,7 +32,7 @@ public interface OrderDao extends Dao<Order> {
      * @return List of orders
      * @throws DaoException
      */
-    List<Order> findOrdersByUserWithoutUserOrder(long userId) throws DaoException;
+    List<Order> findByUserWithoutUserOrder(long userId) throws DaoException;
 
     /**
      * Method to get orders by userId and productId where user order is null in data base
@@ -42,7 +42,7 @@ public interface OrderDao extends Dao<Order> {
      * @return List of orders
      * @throws DaoException
      */
-    List<Order> findOrdersByUserAndProductWithoutUserOrder(long userId, long productId) throws DaoException;
+    List<Order> findByUserAndProductWithoutUserOrder(long userId, long productId) throws DaoException;
 
     /**
      * Method to update userOrder in order by ID and userOrderId in data base

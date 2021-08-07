@@ -12,7 +12,7 @@ import java.util.List;
 public class UserOrderDaoImpl extends AbstractDao<UserOrder> implements UserOrderDao {
     private static final String FIND_USER_ORDERS_BY_USER_ID_QUERY = "SELECT * FROM " + Table.USER_ORDER + " WHERE user_id=? ORDER BY id DESC";
     private static final String FIND_USER_ORDERS_BY_STATUS_QUERY = "SELECT * FROM " + Table.USER_ORDER + " WHERE status=?";
-    private static final String UPDATE_USER_ORDER_STATUS_BY_USER_ORDER_ID_QUERY = "UPDATE " + Table.USER_ORDER + " SET status=? WHERE id=?";
+    private static final String UPDATE_USER_ORDER_STATUS_BY_ID_QUERY = "UPDATE " + Table.USER_ORDER + " SET status=? WHERE id=?";
     private static final String SAVE_USER_ORDER_QUERY = "INSERT INTO " + Table.USER_ORDER + " (address, order_date, delivery_date, status) VALUES (?, ?, ?, ?)";
 
     public UserOrderDaoImpl() {
@@ -30,8 +30,8 @@ public class UserOrderDaoImpl extends AbstractDao<UserOrder> implements UserOrde
     }
 
     @Override
-    public void updateStatusByUserOrder(long id, String status) throws DaoException {
-        executeUpdateQuery(UPDATE_USER_ORDER_STATUS_BY_USER_ORDER_ID_QUERY, status, id);
+    public void updateStatusById(long id, String status) throws DaoException {
+        executeUpdateQuery(UPDATE_USER_ORDER_STATUS_BY_ID_QUERY, status, id);
     }
 
     @Override

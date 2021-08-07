@@ -8,6 +8,9 @@ public class DaoFactory {
     private final PromotionDaoImpl promotionDao = new PromotionDaoImpl();
     private final RoleDaoImpl roleDao = new RoleDaoImpl();
     private final UserInformationDaoImpl userInformationDao = new UserInformationDaoImpl();
+    private final ProductDao productDao = new ProductDaoImpl();
+    private final OrderDao orderDao = new OrderDaoImpl();
+    private final UserOrderDao userOrderDao = new UserOrderDaoImpl();
 
     private DaoFactory() { }
 
@@ -33,6 +36,18 @@ public class DaoFactory {
 
     public UserInformationDaoImpl getUserInformationDao() {
         return userInformationDao;
+    }
+
+    public ProductDao getProductDao() {
+        return productDao;
+    }
+
+    public OrderDao getOrderDao() {
+        return orderDao;
+    }
+
+    public UserOrderDao getUserOrderDao() {
+        return userOrderDao;
     }
 
     private static class Holder {

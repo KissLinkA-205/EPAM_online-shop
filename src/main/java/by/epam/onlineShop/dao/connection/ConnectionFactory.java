@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionFactory {
-    private static final Logger logger = LogManager.getLogger(ConnectionFactory.class);
+    private static final Logger logger = LogManager.getLogger();
     private static final String DB_URL = "db.url";
     private static final String DB_USER = "db.user";
     private static final String DB_PASSWORD = "db.password";

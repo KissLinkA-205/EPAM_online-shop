@@ -29,10 +29,10 @@ public interface UserOrderDao extends Dao<UserOrder> {
     /**
      * Method to update status in user order by ID in data base
      *
-     * @param id     ID of entity to update
+     * @param id     ID of user order to update
      * @param status new user order status
      * @throws DaoException
      */
-    void updateStatusByUserOrder(long id, String status) throws DaoException;
+    void updateStatusById(long id, String status) throws DaoException;
 
 }
