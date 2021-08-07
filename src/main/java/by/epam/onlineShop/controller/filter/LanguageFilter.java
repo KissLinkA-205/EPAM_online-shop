@@ -1,24 +1,17 @@
-package by.epam.onlineShop.filter;
+package by.epam.onlineShop.controller.filter;
 
-import by.epam.onlineShop.context.RequestContext;
-import by.epam.onlineShop.context.RequestContextHelper;
+import by.epam.onlineShop.controller.context.RequestContext;
+import by.epam.onlineShop.controller.context.RequestContextHelper;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
-import java.util.Optional;
 
 public class LanguageFilter implements Filter {
     private static final String ATTRIBUTE = "language";
-    private static final String EN = "en";
+    private static final String RU = "ru";
 
     @Override
     public void init(FilterConfig filterConfig) {
@@ -34,7 +27,7 @@ public class LanguageFilter implements Filter {
 
         String sessionLanguage = (String) requestContext.getSessionAttribute(ATTRIBUTE);
         if (sessionLanguage == null) {
-            requestContext.addSessionAttribute(ATTRIBUTE, EN);
+            requestContext.addSessionAttribute(ATTRIBUTE, RU);
             requestHelper.updateRequest(requestContext);
         }
 

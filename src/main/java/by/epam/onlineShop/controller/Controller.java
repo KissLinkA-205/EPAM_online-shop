@@ -1,12 +1,13 @@
-package by.epam.onlineShop;
+package by.epam.onlineShop.controller;
 
-import by.epam.onlineShop.connection.ConnectionPool;
-import by.epam.onlineShop.context.RequestContextHelper;
+import by.epam.onlineShop.controller.command.Command;
+import by.epam.onlineShop.controller.command.CommandFactory;
+import by.epam.onlineShop.controller.command.CommandResult;
+import by.epam.onlineShop.controller.context.RequestContextHelper;
+import by.epam.onlineShop.dao.connection.ConnectionPool;
 import by.epam.onlineShop.exeptions.ConnectionException;
-import by.epam.onlineShop.exeptions.ServiceException;
-import by.epam.onlineShop.logic.command.Command;
-import by.epam.onlineShop.logic.command.CommandFactory;
-import by.epam.onlineShop.logic.command.CommandResult;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-public class Servlet extends HttpServlet {
+public class Controller extends HttpServlet {
+    private static final Logger logger = LogManager.getLogger(Controller.class);
+
     private static final String COMMAND = "command";
     private static final String PATH = "/online-shop?";
 
@@ -23,8 +26,9 @@ public class Servlet extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         try {
-            ConnectionPool.getInstance();
+            ConnectionPool.getInstance().initialize();
         } catch (ConnectionException e) {
+            logger.error("Servlet wasn't init!");
             throw new RuntimeException(e);
         }
     }
@@ -35,6 +39,7 @@ public class Servlet extends HttpServlet {
             ConnectionPool.getInstance().destroy();
             super.destroy();
         } catch (ConnectionException e) {
+            logger.error("Servlet wasn't destroy!");
             throw new RuntimeException(e);
         }
     }
@@ -42,30 +47,25 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            process(request, response);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+
+        process(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            process(request, response);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+
+        process(request, response);
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ServiceException {
+            throws ServletException, IOException {
         String commandName = request.getParameter(COMMAND);
+
         if (commandName == null || "".equals(commandName)) {
             response.sendRedirect(PATH + "command=main");
         } else {
-            Command command = CommandFactory.createCommand(commandName);
+            Command command = CommandFactory.getInstance().getCommand(commandName);
             RequestContextHelper contextHelper = new RequestContextHelper(request);
 
             CommandResult result = command.execute(contextHelper, response);

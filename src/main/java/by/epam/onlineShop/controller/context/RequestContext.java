@@ -1,4 +1,4 @@
-package by.epam.onlineShop.context;
+package by.epam.onlineShop.controller.context;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -37,6 +37,10 @@ public class RequestContext {
 
     public void addRequestParameter(String key, String value) {
         requestParameters.put(key, value);
+    }
+
+    public Object getRequestAttribute(String key){
+        return requestAttributes.get(key);
     }
 
     public void removeRequestParameter(String key) {

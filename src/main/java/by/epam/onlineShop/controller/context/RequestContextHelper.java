@@ -1,4 +1,4 @@
-package by.epam.onlineShop.context;
+package by.epam.onlineShop.controller.context;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
