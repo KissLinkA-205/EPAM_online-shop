@@ -21,6 +21,16 @@
 <fmt:setBundle basename="information" var="info"/>
 
 <div class="container">
+    <c:if test="${param.message == 'error'}">
+        <div class="alert alert-danger fade show " role="alert">
+            <fmt:message bundle="${loc}" key="language.productAlreadyInTheBasket"/>
+        </div>
+    </c:if>
+    <c:if test="${param.message == 'ok'}">
+        <div class="alert alert-success fade show " role="alert">
+            <fmt:message bundle="${loc}" key="language.productAddedToBasket"/>
+        </div>
+    </c:if>
     <c:forEach var="product" items="${products}">
         <div class="my-lg-4">
             <div class="col-6"></div>
@@ -76,10 +86,24 @@
                             </div>
                             <c:if test="${sessionScope.user != null}">
                                 <c:if test="${product.status == true}">
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-outline-primary">
-                                            <fmt:message bundle="${loc}" key="language.addToBasket"/></button>
-                                    </div>
+
+                                    <form action=${pageContext.request.contextPath}/online-shop?command=addToBasket
+                                          method="post">
+
+                                        <div class="btn-group" role="group">
+                                            <input type="number" class="form-control col-md-4" step="1" min="1"
+                                                   max="100"
+                                                   id="num_count"
+                                                   name="quantity" value="1" title="Qty">
+
+
+                                            <button type="submit" class="btn btn-outline-primary" name="productId"
+                                                    value="${product.id}">
+                                                <fmt:message bundle="${loc}" key="language.addToBasket"/></button>
+                                        </div>
+
+                                    </form>
+
                                 </c:if>
                             </c:if>
                         </div>
@@ -89,7 +113,6 @@
         </div>
     </c:forEach>
 </div>
-
 
 </body>
 <jsp:include page="fragments/footer.jsp"/>

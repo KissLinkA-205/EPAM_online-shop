@@ -104,7 +104,7 @@
             </form>
             <hr class="dropdown-divider">
             <p class="text-muted"><fmt:message bundle="${loc}" key="language.haveAccount"/><a
-                    href="${pageContext.request.contextPath}/online-shop?command=login"> <fmt:message
+                    href="${pageContext.request.contextPath}/online-shop?command=logIn"> <fmt:message
                     bundle="${loc}" key="language.logIn"/></a></p>
             <a href="/online-shop?command=main"><fmt:message bundle="${loc}" key="language.home"/></a>
         </div>

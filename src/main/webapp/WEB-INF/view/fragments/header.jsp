@@ -132,7 +132,7 @@
                         <c:when test="${sessionScope.user == null}">
                             <li class="nav-item">
                                 <button class="btn btn-secondary my-2 my-sm-0" type="submit" name="command"
-                                        value="login">
+                                        value="logIn">
                                     <fmt:message bundle="${loc}" key="language.logIn"/>
                                 </button>
                             </li>

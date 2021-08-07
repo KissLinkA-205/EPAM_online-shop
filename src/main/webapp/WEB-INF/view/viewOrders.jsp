@@ -27,6 +27,7 @@
     </div>
 </c:if>
 <c:if test="${sessionScope.role.name == 'admin'}">
+<form action=${pageContext.request.contextPath}/online-shop method="post">
     <div class="p-3">
         <div class="row justify-content-center">
             <table class="table table-hover">
@@ -99,7 +100,8 @@
                         <td><c:out value="${userOrder.deliveryDate}"/></td>
                         <td class="text-active"><c:out value="${userOrder.status}"/></td>
                         <td>
-                            <button type="button" class="btn btn-outline-success">
+                            <button type="submit" class="btn btn-outline-success" name="userOrderId"
+                                    value="${userOrder.id}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-check2" viewBox="0 0 16 16">
                                     <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
@@ -109,8 +111,10 @@
                     </tr>
                 </c:forEach>
             </table>
+            <input type="hidden" name="command" value="completeUserOrder"/>
         </div>
     </div>
+</form>
 </c:if>
 </body>
 <jsp:include page="fragments/footer.jsp"/>
