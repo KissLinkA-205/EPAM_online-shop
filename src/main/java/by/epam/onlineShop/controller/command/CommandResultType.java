@@ -1,4 +1,4 @@
-package by.epam.onlineShop.logic.command;
+package by.epam.onlineShop.controller.command;
 
 public enum CommandResultType {
     FORWARD, REDIRECT

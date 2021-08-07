@@ -1,4 +1,4 @@
-package by.epam.onlineShop.logic.command;
+package by.epam.onlineShop.controller.command;
 
 public class CommandResult {
     private final String page;
