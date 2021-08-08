@@ -33,11 +33,12 @@ CREATE TABLE IF NOT EXISTS UserInformation
 CREATE TABLE IF NOT EXISTS BankCards
 (
     id                   BIGINT UNSIGNED AUTO_INCREMENT,
-    userInformation_id   BIGINT UNSIGNED NOT NULL,
-    card_number          BIGINT(16) UNSIGNED NOT NULL,
+    userInformation_id   BIGINT UNSIGNED,
+    card_number          BIGINT(16) UNSIGNED NOT NULL UNIQUE,
     expiration_year      TINYINT(2) UNSIGNED NOT NULL,
     explaration_month    TINYINT(2) UNSIGNED NOT NULL,
     card_owner           VARCHAR(70) NOT NULL,
+    balance              DOUBLE UNSIGNED NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (userInformation_id) REFERENCES UserInformation (id)
 );
