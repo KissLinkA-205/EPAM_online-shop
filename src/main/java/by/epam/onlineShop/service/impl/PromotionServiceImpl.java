@@ -61,6 +61,8 @@ public class PromotionServiceImpl implements PromotionService {
                 Optional<Promotion> promotion = retrievePromotionById(product.getPromotionId());
                 if (promotion.isPresent()) {
                     Double newPrice = calculateNewPrice(product.getPrice(), promotion.get().getDiscount());
+                    double scale = Math.pow(10, 2);
+                    newPrice = Math.ceil(newPrice * scale) / scale;
                     newPrices.put(product.getName(), newPrice);
                 }
             }

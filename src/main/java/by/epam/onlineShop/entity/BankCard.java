@@ -6,17 +6,17 @@ public class BankCard implements Identifiable {
     private long cardNumber;
     private int expirationMonth;
     private int expirationYear;
-    private String cardOwner;
+    private String cardholderName;
 
     public BankCard() { }
 
-    public BankCard(long id, long userInformationId, long cardNumber, int expirationMonth, int expirationYear, String cardOwner) {
+    public BankCard(long id, long userInformationId, long cardNumber, int expirationMonth, int expirationYear, String cardholderName) {
         this.id = id;
         this.userInformationId = userInformationId;
         this.cardNumber = cardNumber;
         this.expirationMonth = expirationMonth;
         this.expirationYear = expirationYear;
-        this.cardOwner = cardOwner;
+        this.cardholderName = cardholderName;
     }
 
     @Override
@@ -60,12 +60,12 @@ public class BankCard implements Identifiable {
         this.expirationYear = expirationYear;
     }
 
-    public String getCardOwner() {
-        return cardOwner;
+    public String getCardholderName() {
+        return cardholderName;
     }
 
-    public void setCardOwner(String cardOwner) {
-        this.cardOwner = cardOwner;
+    public void setCardholderName(String cardholderName) {
+        this.cardholderName = cardholderName;
     }
 
     @Override
@@ -80,7 +80,7 @@ public class BankCard implements Identifiable {
                 cardNumber == bankCard.cardNumber &&
                 expirationMonth == bankCard.expirationMonth &&
                 expirationYear == bankCard.expirationYear &&
-                cardOwner.equals(bankCard.cardOwner);
+                cardholderName.equals(bankCard.cardholderName);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class BankCard implements Identifiable {
         result = prime * result + (int) cardNumber;
         result = prime * result + expirationMonth;
         result = prime * result + expirationYear;
-        result = prime * result + ((cardOwner == null) ? 0 : cardOwner.hashCode());
+        result = prime * result + ((cardholderName == null) ? 0 : cardholderName.hashCode());
         return result;
     }
 
@@ -104,7 +104,7 @@ public class BankCard implements Identifiable {
         result.append(", cardNumber=").append(cardNumber);
         result.append(", expirationMonth=").append(expirationMonth);
         result.append(", expirationYear=").append(expirationYear);
-        result.append(", cardOwner='").append(cardOwner).append('\'');
+        result.append(", cardOwner='").append(cardholderName).append('\'');
         result.append('}');
         return result.toString();
     }

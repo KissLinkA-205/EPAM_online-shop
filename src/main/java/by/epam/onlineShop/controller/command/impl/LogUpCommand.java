@@ -47,11 +47,11 @@ public class LogUpCommand implements Command {
                     if (result) message = "ok";
                 }
             }
-            requestContext.addRequestAttribute(MESSAGE, message);
         } catch (ServiceException e) {
             return new CommandResult(ERROR_PAGE, CommandResultType.FORWARD);
         }
 
+        requestContext.addRequestAttribute(MESSAGE, message);
         helper.updateRequest(requestContext);
         return new CommandResult(PAGE, CommandResultType.FORWARD);
     }

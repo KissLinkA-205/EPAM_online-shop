@@ -43,7 +43,8 @@
                         <label for="address" class="form-label"><fmt:message bundle="${loc}"
                                                                            key="language.address"/></label>
                         <input type="text" class="form-control" name="address" id="address"
-                               placeholder="City, Street **" required></div>
+                               placeholder="City, Street **" required>
+                    </div>
 
                     <div class="mb-3">
                         <label for="delivery-date" class="form-label"><fmt:message bundle="${loc}"
@@ -65,7 +66,7 @@
                                 <input type="text" id="cardholder-name" name="cardholder-name" class="form-control"
                                        placeholder="Name Surname" required
                                        maxlength="45"
-                                       pattern="\b[A-Z].*?\b"></div>
+                                       pattern="\b[A-ZА-Я].*?\b"></div>
                         </div>
 
                         <div class="col-sm">

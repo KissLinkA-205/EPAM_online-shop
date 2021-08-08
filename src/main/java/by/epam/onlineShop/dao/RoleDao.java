@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface RoleDao extends Dao<Role> {
 
     /**
-     * Method to get role by name in data base
+     * Method to get role by name from data base
      *
      * @param name role name
      * @return optional of Role

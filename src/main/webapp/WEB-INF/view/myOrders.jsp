@@ -19,52 +19,59 @@
 <fmt:setBundle basename="localization.language" var="loc"/>
 <div class="p-3">
     <div class="row justify-content-center">
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th scope="col"><fmt:message bundle="${loc}" key="language.orderId"/></th>
-                <th scope="col"><fmt:message bundle="${loc}" key="language.title"/></th>
-                <th scope="col"><fmt:message bundle="${loc}" key="language.number"/></th>
-                <th scope="col"><fmt:message bundle="${loc}" key="language.address"/></th>
-                <th scope="col"><fmt:message bundle="${loc}" key="language.orderDate"/></th>
-                <th scope="col"><fmt:message bundle="${loc}" key="language.deliveryDate"/></th>
-                <th scope="col"><fmt:message bundle="${loc}" key="language.status"/></th>
-            </tr>
-            </thead>
-            <c:forEach var="userOrder" items="${userOrders}">
+        <c:if test="${sessionScope.user == null}">
+            <div class="alert alert-danger fade show " role="alert">
+                <fmt:message bundle="${loc}" key="language.noRights"/>
+            </div>
+        </c:if>
+        <c:if test="${sessionScope.user != null}">
+            <table class="table table-hover">
+                <thead>
                 <tr>
-                    <th scope="row">#<c:out value="${userOrder.id}"/></th>
-                    <td class="text-primary">
-                        <c:forEach var="order" items="${orders}">
-                            <c:forEach var="product" items="${products}">
-                                <c:if test="${product.id == order.productId && userOrder.id == order.userOrderId}">
-                                    <p><c:out value="${product.name}"/></p>
+                    <th scope="col"><fmt:message bundle="${loc}" key="language.orderId"/></th>
+                    <th scope="col"><fmt:message bundle="${loc}" key="language.title"/></th>
+                    <th scope="col"><fmt:message bundle="${loc}" key="language.number"/></th>
+                    <th scope="col"><fmt:message bundle="${loc}" key="language.address"/></th>
+                    <th scope="col"><fmt:message bundle="${loc}" key="language.orderDate"/></th>
+                    <th scope="col"><fmt:message bundle="${loc}" key="language.deliveryDate"/></th>
+                    <th scope="col"><fmt:message bundle="${loc}" key="language.status"/></th>
+                </tr>
+                </thead>
+                <c:forEach var="userOrder" items="${userOrders}">
+                    <tr>
+                        <th scope="row">#<c:out value="${userOrder.id}"/></th>
+                        <td class="text-primary">
+                            <c:forEach var="order" items="${orders}">
+                                <c:forEach var="product" items="${products}">
+                                    <c:if test="${product.id == order.productId && userOrder.id == order.userOrderId}">
+                                        <p><c:out value="${product.name}"/></p>
+                                    </c:if>
+                                </c:forEach>
+                            </c:forEach>
+                        </td>
+                        <td class="text-primary">
+                            <c:forEach var="order" items="${orders}">
+                                <c:if test="${userOrder.id == order.userOrderId}">
+                                    <p><c:out value="${order.number}"/></p>
                                 </c:if>
                             </c:forEach>
-                        </c:forEach>
-                    </td>
-                    <td class="text-primary">
-                        <c:forEach var="order" items="${orders}">
-                            <c:if test="${userOrder.id == order.userOrderId}">
-                                <p><c:out value="${order.number}"/></p>
-                            </c:if>
-                        </c:forEach>
-                    </td>
-                    <td><c:out value="${userOrder.address}"/></td>
-                    <td><c:out value="${userOrder.orderDate}"/></td>
-                    <td><c:out value="${userOrder.deliveryDate}"/></td>
-                    <c:if test="${userOrder.status == 'received'}">
-                        <td class="text-success"><c:out value="${userOrder.status}"/></td>
-                    </c:if>
-                    <c:if test="${userOrder.status == 'expected'}">
-                        <td class="text-active"><c:out value="${userOrder.status}"/></td>
-                    </c:if>
-                    <c:if test="${userOrder.status == 'canceled'}">
-                        <td class="text-danger"><c:out value="${userOrder.status}"/></td>
-                    </c:if>
-                </tr>
-            </c:forEach>
-        </table>
+                        </td>
+                        <td><c:out value="${userOrder.address}"/></td>
+                        <td><c:out value="${userOrder.orderDate}"/></td>
+                        <td><c:out value="${userOrder.deliveryDate}"/></td>
+                        <c:if test="${userOrder.status == 'получен'}">
+                            <td class="text-success"><c:out value="${userOrder.status}"/></td>
+                        </c:if>
+                        <c:if test="${userOrder.status == 'ожидается'}">
+                            <td class="text-active"><c:out value="${userOrder.status}"/></td>
+                        </c:if>
+                        <c:if test="${userOrder.status == 'отменен'}">
+                            <td class="text-danger"><c:out value="${userOrder.status}"/></td>
+                        </c:if>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>
     </div>
 </div>
 </body>

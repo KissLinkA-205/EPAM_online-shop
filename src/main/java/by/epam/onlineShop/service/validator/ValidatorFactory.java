@@ -10,6 +10,7 @@ public class ValidatorFactory {
     private final NameValidatorImpl nameValidator = new NameValidatorImpl();
     private final PhoneValidatorImpl phoneValidator = new PhoneValidatorImpl();
     private final YearValidatorImpl yearValidator = new YearValidatorImpl();
+    private final PriceValidatorImpl priceValidator = new PriceValidatorImpl();
 
     public static ValidatorFactory getInstance() {
         return Holder.INSTANCE;
@@ -41,6 +42,10 @@ public class ValidatorFactory {
 
     public YearValidatorImpl getYearValidator() {
         return yearValidator;
+    }
+
+    public PriceValidatorImpl getPriceValidator() {
+        return priceValidator;
     }
 
     private static class Holder {

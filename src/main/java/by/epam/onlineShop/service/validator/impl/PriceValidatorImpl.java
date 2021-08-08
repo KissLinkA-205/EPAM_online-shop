@@ -2,11 +2,11 @@ package by.epam.onlineShop.service.validator.impl;
 
 import by.epam.onlineShop.service.validator.AbstractValidator;
 
-public class NameValidatorImpl extends AbstractValidator {
-    private static final String NAME_REGEX = "^[A-ZА-Я]{1}[A-zА-я]{2,29}$";
+public class PriceValidatorImpl extends AbstractValidator {
+    private static final String PRICE_REGEX = "^\\d+\\.\\d{0,2}$";
 
     @Override
     protected String getRegex() {
-        return NAME_REGEX;
+        return PRICE_REGEX;
     }
 }

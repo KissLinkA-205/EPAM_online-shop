@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserOrderDao extends Dao<UserOrder> {
 
     /**
-     * Method to get user orders by userId in data base
+     * Method to get user orders by userId from data base
      *
      * @param userId user's ID
      * @return List of user orders
@@ -18,7 +18,7 @@ public interface UserOrderDao extends Dao<UserOrder> {
     List<UserOrder> findByUser(long userId) throws DaoException;
 
     /**
-     * Method to get user orders by status in data base
+     * Method to get user orders by status from data base
      *
      * @param status user order status
      * @return List of user orders

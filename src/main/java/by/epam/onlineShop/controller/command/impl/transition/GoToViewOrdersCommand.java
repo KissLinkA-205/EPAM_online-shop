@@ -32,7 +32,7 @@ public class GoToViewOrdersCommand implements Command {
             requestContext.addRequestAttribute(CATEGORIES, categories);
 
             UserOrderService userOrderService = ServiceFactory.getInstance().getUserOrderService();
-            List<UserOrder> userOrders = userOrderService.retrieveUserOrderByStatus("expected");
+            List<UserOrder> userOrders = userOrderService.retrieveUserOrderByStatus("ожидается");
             requestContext.addRequestAttribute(USER_ORDERS, userOrders);
 
             OrderService orderService = ServiceFactory.getInstance().getOrderService();

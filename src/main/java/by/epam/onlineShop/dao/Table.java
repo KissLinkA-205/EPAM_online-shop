@@ -9,4 +9,5 @@ public final class Table {
     public static final String ROLE = "Roles";
     public static final String USER_INFORMATION = "UserInformation";
     public static final String USER_ORDER = "UserOrders";
+    public static final String BANK_CARD = "BankCards";
 }

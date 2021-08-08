@@ -35,4 +35,7 @@ public interface ProductService {
      * @throws ServiceException
      */
     List<Product> getProductsFromOrders(List<Order> orders) throws ServiceException;
+
+    boolean addNewProduct(String productName, String photo, String priceString, String category,
+                          boolean status, String description) throws ServiceException;
 }

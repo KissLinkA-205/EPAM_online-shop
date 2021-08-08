@@ -16,7 +16,6 @@ public class CompleteOrderCommand implements Command {
     private static final String USER_ORDER_ID = "userOrderId";
     private static final String ERROR_PAGE = "WEB-INF/view/error.jsp";
 
-
     @Override
     public CommandResult execute(RequestContextHelper helper, HttpServletResponse response) {
         RequestContext requestContext = helper.createContext();
@@ -24,7 +23,7 @@ public class CompleteOrderCommand implements Command {
         try {
             long userOrderId = Long.parseLong(requestContext.getRequestParameter(USER_ORDER_ID));
             UserOrderService userOrderService = ServiceFactory.getInstance().getUserOrderService();
-            userOrderService.updateStatusAtUserOrderById(userOrderId, "received");
+            userOrderService.updateStatusAtUserOrderById(userOrderId, "получен");
         } catch (ServiceException e) {
             return new CommandResult(ERROR_PAGE, CommandResultType.FORWARD);
         }

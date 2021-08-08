@@ -1,7 +1,5 @@
 package by.epam.onlineShop.controller.command;
 
-import by.epam.onlineShop.command.impl.*;
-import by.epam.onlineShop.command.impl.transition.*;
 import by.epam.onlineShop.controller.command.impl.*;
 import by.epam.onlineShop.controller.command.impl.transition.*;
 
@@ -33,6 +31,7 @@ public class CommandFactory {
         commands.put(CommandName.COMPLETE_USER_ORDER_COMMAND, new CompleteOrderCommand());
         commands.put(CommandName.ADD_TO_BASKET_COMMAND, new AddToBasketCommand());
         commands.put(CommandName.CONFIRM_ORDER_COMMAND, new ConfirmOrderCommand());
+        commands.put(CommandName.CONFIRM_ADDING_PRODUCT_COMMAND, new ConfirmAddingProductCommand());
     }
 
     public static CommandFactory getInstance() {

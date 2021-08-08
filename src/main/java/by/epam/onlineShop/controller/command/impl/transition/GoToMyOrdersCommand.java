@@ -25,12 +25,16 @@ public class GoToMyOrdersCommand implements Command {
     public CommandResult execute(RequestContextHelper helper, HttpServletResponse response) {
         RequestContext requestContext = helper.createContext();
 
+        User user = (User) requestContext.getSessionAttribute(USER);
+        if (user == null) {
+            helper.updateRequest(requestContext);
+            return new CommandResult(PAGE, CommandResultType.FORWARD);
+        }
         try {
             CategoryService categoryService = ServiceFactory.getInstance().getCategoryService();
             List<Category> categories = categoryService.retrieveCategories();
             requestContext.addRequestAttribute(CATEGORIES, categories);
 
-            User user = (User) requestContext.getSessionAttribute(USER);
             long userId = user.getId();
             OrderService orderService = ServiceFactory.getInstance().getOrderService();
             List<Order> orders = orderService.retrieveOrdersByUser(userId);

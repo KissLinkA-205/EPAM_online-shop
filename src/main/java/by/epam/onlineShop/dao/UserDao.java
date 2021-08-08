@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface UserDao extends Dao<User> {
 
     /**
-     * Method to get user by email and password in data base
+     * Method to get user by email and password from data base
      *
      * @param email    user's email
      * @param password user's password
@@ -18,7 +18,7 @@ public interface UserDao extends Dao<User> {
     Optional<User> findByEmailAndPassword(String email, String password) throws DaoException;
 
     /**
-     * Method to get user by email in data base
+     * Method to get user by email from data base
      *
      * @param email user's email
      * @return optional of User

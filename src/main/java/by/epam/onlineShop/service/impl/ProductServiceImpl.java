@@ -1,13 +1,17 @@
 package by.epam.onlineShop.service.impl;
 
+import by.epam.onlineShop.dao.CategoryDao;
 import by.epam.onlineShop.dao.DaoFactory;
 import by.epam.onlineShop.dao.ProductDao;
+import by.epam.onlineShop.entity.Category;
 import by.epam.onlineShop.entity.Order;
 import by.epam.onlineShop.entity.Product;
 import by.epam.onlineShop.exeptions.DaoException;
 import by.epam.onlineShop.exeptions.ServiceException;
 import by.epam.onlineShop.service.ProductService;
-import by.epam.onlineShop.service.ServiceFactory;
+import by.epam.onlineShop.service.validator.Validator;
+import by.epam.onlineShop.service.validator.ValidatorFactory;
+import by.epam.onlineShop.service.validator.impl.PriceValidatorImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -58,5 +62,56 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return products;
+    }
+
+    @Override
+    public boolean addNewProduct(String productName, String photo, String priceString, String categoryName, boolean status, String description) throws ServiceException {
+        if (productName == null || photo == null || categoryName == null || description == null) {
+            return false;
+        }
+
+        Validator priceValidator = ValidatorFactory.getInstance().getPriceValidator();
+        if(!priceValidator.isValid(priceString)) {
+            return false;
+        }
+
+        try {
+            ProductDao productDao = DaoFactory.getInstance().getProductDao();
+            Optional<Product> productExist = productDao.findByName(productName);
+            if (productExist.isPresent()) {
+                return false;
+            }
+
+            CategoryDao categoryDao = DaoFactory.getInstance().getCategoryDao();
+            Optional<Category> categoryExist = categoryDao.findByName(categoryName);
+            long categoryId;
+            if (categoryExist.isPresent()) {
+                categoryId = categoryExist.get().getId();
+            } else {
+                Category category = new Category();
+                category.setCategoryName(categoryName);
+                categoryId = categoryDao.save(category);
+            }
+            double price = Double.parseDouble(priceString);
+            Product product = buildProduct(categoryId, productName, description, price, status, photo);
+            productDao.save(product);
+
+            return true;
+        } catch (DaoException e) {
+            logger.error("Unable to add product!");
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+    private Product buildProduct(long categoryId, String name, String description, double price,
+                                 boolean status, String photo) {
+        Product product = new Product();
+        product.setCategoryId(categoryId);
+        product.setName(name);
+        product.setDescription(description);
+        product.setPrice(price);
+        product.setStatus(status);
+        product.setPhoto(photo);
+        return product;
     }
 }

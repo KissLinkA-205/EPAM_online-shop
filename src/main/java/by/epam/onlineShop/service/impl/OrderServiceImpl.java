@@ -113,6 +113,8 @@ public class OrderServiceImpl implements OrderService {
                         if (promotion.isPresent()) {
                             PromotionService promotionService = ServiceFactory.getInstance().getPromotionService();
                             double newPrice = promotionService.calculateNewPrice(product.get().getPrice(), promotion.get().getDiscount());
+                            double scale = Math.pow(10, 2);
+                            newPrice = Math.ceil(newPrice * scale) / scale;
                             product.get().setPrice(newPrice);
                         }
                     }

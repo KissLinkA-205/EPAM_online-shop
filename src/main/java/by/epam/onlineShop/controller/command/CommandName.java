@@ -22,4 +22,5 @@ public final class CommandName {
     public static final String COMPLETE_USER_ORDER_COMMAND = "completeUserOrder";
     public static final String ADD_TO_BASKET_COMMAND = "addToBasket";
     public static final String CONFIRM_ORDER_COMMAND = "confirmOrder";
+    public static final String CONFIRM_ADDING_PRODUCT_COMMAND = "confirmAddingProduct";
 }

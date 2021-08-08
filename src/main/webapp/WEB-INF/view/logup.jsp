@@ -46,7 +46,7 @@
                         <label for="name" class="form-label"><fmt:message bundle="${loc}" key="language.name"/></label>
                         <input type="text" id="name" name="name" class="form-control"
                                placeholder="<fmt:message bundle="${loc}" key="language.name"/>" required maxlength="45"
-                               pattern="\b[A-Z].*?\b">
+                               pattern="\b[A-ZА-Я].*?\b">
                     </div>
                     <div class="col-sm">
                         <label for="surname" class="form-label"><fmt:message bundle="${loc}"
@@ -54,7 +54,7 @@
                         <input type="text" id="surname" name="surname" class="form-control"
                                placeholder="<fmt:message bundle="${loc}" key="language.surname"/>" required
                                maxlength="45"
-                               pattern="\b[A-Z].*?\b">
+                               pattern="\b[A-ZА-Я].*?\b">
                     </div>
                 </div>
 
@@ -65,7 +65,7 @@
                         <input type="text" id="patronymic" name="patronymic" class="form-control"
                                placeholder="<fmt:message bundle="${loc}" key="language.patronymic"/>" required
                                maxlength="45"
-                               pattern="\b[A-Z].*?\b">
+                               pattern="\b[A-ZА-Я].*?\b">
                     </div>
                     <div class="col-sm">
                         <label for="phone" class="form-label"><fmt:message bundle="${loc}"

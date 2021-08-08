@@ -28,12 +28,17 @@ public class GoToProfileCommand implements Command {
     public CommandResult execute(RequestContextHelper helper, HttpServletResponse response) {
         RequestContext requestContext = helper.createContext();
 
+        User user = (User) requestContext.getSessionAttribute(USER);
+        if (user == null) {
+            helper.updateRequest(requestContext);
+            return new CommandResult(PAGE, CommandResultType.FORWARD);
+        }
+
         try {
             CategoryService categoryService = ServiceFactory.getInstance().getCategoryService();
             List<Category> categories = categoryService.retrieveCategories();
             requestContext.addRequestAttribute(CATEGORIES, categories);
 
-            User user = (User) requestContext.getSessionAttribute(USER);
             long userInformationId = user.getUserInformationId();
             UserInformationService userInformationService = ServiceFactory.getInstance().getUserInformationService();
             Optional<UserInformation> userInformation = userInformationService.retrieveUserInformationById(userInformationId);

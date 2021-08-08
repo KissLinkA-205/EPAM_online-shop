@@ -6,6 +6,7 @@ import by.epam.onlineShop.entity.Product;
 import by.epam.onlineShop.exeptions.DaoException;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductDao extends Dao<Product> {
 
@@ -16,4 +17,13 @@ public interface ProductDao extends Dao<Product> {
      * @throws DaoException
      */
     List<Product> findByCategory(long categoryId) throws DaoException;
+
+    /**
+     * Method to get product by name from data base
+     *
+     * @param name name of product
+     * @return Optional of product
+     * @throws DaoException
+     */
+    Optional<Product> findByName(String name) throws DaoException;
 }
