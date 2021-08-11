@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayDeque;
 import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -14,6 +13,7 @@ import java.util.concurrent.BlockingQueue;
 public class ConnectionPool {
     private static final Logger logger = LogManager.getLogger();
     private static final String POOL_SIZE = "db.default-pool-size";
+    private static final String DB_CONNECTION_PATH = "connection/dbConnection.properties";
 
     private BlockingQueue<ProxyConnection> availableConnections;
     private BlockingQueue<ProxyConnection> usedConnections;
@@ -28,7 +28,7 @@ public class ConnectionPool {
     public void initialize() throws ConnectionException {
         try {
             Properties dbProperties = new Properties();
-            dbProperties.load(ConnectionFactory.class.getClassLoader().getResourceAsStream("connection/dbConnection.properties"));
+            dbProperties.load(ConnectionFactory.class.getClassLoader().getResourceAsStream(DB_CONNECTION_PATH));
             int poolSize = Integer.parseInt(dbProperties.getProperty(POOL_SIZE));
             availableConnections = new ArrayBlockingQueue<>(poolSize);
             usedConnections = new ArrayBlockingQueue<>(poolSize);

@@ -2,7 +2,21 @@ package by.epam.onlineShop.dao.connection;
 
 import by.epam.onlineShop.exeptions.ConnectionException;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.CallableStatement;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLWarning;
+import java.sql.Blob;
+import java.sql.Clob;
+import java.sql.NClob;
+import java.sql.Savepoint;
+import java.sql.Array;
+import java.sql.SQLClientInfoException;
+import java.sql.Struct;
+import java.sql.SQLXML;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
