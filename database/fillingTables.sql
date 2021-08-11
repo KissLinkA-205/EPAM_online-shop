@@ -27,14 +27,14 @@ VALUES ('Слушай музыку', 'Акция "Слушай музыку". К
         50, '2021-07-24', '2021-08-24', 'promotions/listen_music.jpg');
 
 /* todo --------------filling in the table "BankCards"---------------------*/
-INSERT INTO BankCards (card_number, expiration_year, explaration_month, card_owner, balance)
-VALUES (5106211010255079, 23, 07, 'VICTOR PETROV', 10023.56);
+INSERT INTO BankCards (card_number, expiration_year, expiration_month, card_owner, cvv, balance)
+VALUES (5106211010255079, 2023, 07, 'VICTOR PETROV', 778, 10023.56);
 
-INSERT INTO BankCards (card_number, expiration_year, explaration_month, card_owner, balance)
-VALUES (4276880099433504, 22, 11, 'VICTOR PETROV', 512.32);
+INSERT INTO BankCards (card_number, expiration_year, expiration_month, card_owner, cvv, balance)
+VALUES (4276880099433504, 2022, 11, 'VICTOR PETROV', 291, 512.32);
 
-INSERT INTO BankCards (card_number, expiration_year, explaration_month, card_owner, balance)
-VALUES (5412751234123456, 23, 02, 'EKATERINA KOZLOVA', 22014.78);
+INSERT INTO BankCards (card_number, expiration_year, expiration_month, card_owner, cvv, balance)
+VALUES (5412751234123456, 2023, 02, 'EKATERINA KOZLOVA', 081, 22014.78);
 
 /* todo --------------filling in the table "Users"---------------------*/
 INSERT INTO Users (userInformation_id, role_id, email, password)
@@ -91,7 +91,7 @@ VALUES (3, 2, 'Xiaomi Mi True Wireless Earbuds Basic 2 TWSEJ061LS', 42.00, 0,
 
 /* todo --------------filling in the table "Orders"---------------------*/
 INSERT INTO Orders (product_id, user_id, userOrder_id, number)
-VALUES (1, 2, 1, 1);
+VALUES (1, 3, 1, 1);
 
 INSERT INTO Orders (product_id, user_id, userOrder_id, number)
 VALUES (4, 3, 1, 1);
