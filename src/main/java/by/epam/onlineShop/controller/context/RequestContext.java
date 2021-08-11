@@ -1,6 +1,5 @@
 package by.epam.onlineShop.controller.context;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,7 +38,7 @@ public class RequestContext {
         requestParameters.put(key, value);
     }
 
-    public Object getRequestAttribute(String key){
+    public Object getRequestAttribute(String key) {
         return requestAttributes.get(key);
     }
 
