@@ -42,4 +42,11 @@ public final class Column {
     public static final String PROMOTION_BEGINNING_DATE = "beginning_date";
     public static final String PROMOTION_EXPIRATION_DATE = "expiration_date";
     public static final String PROMOTION_PHOTO = "photo";
+
+    public static final String BANK_CARD_NUMBER = "card_number";
+    public static final String BANK_CARD_OWNER = "card_owner";
+    public static final String BANK_CARD_EXPIRATION_MONTH = "expiration_month";
+    public static final String BANK_CARD_EXPIRATION_YEAR = "expiration_year";
+    public static final String BANK_CARD_BALANCE = "balance";
+    public static final String BANK_CARD_CVV = "cvv";
 }
