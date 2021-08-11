@@ -1,6 +1,14 @@
 package by.epam.onlineShop.dao;
 
-import by.epam.onlineShop.dao.impl.*;
+import by.epam.onlineShop.dao.impl.CategoryDaoImpl;
+import by.epam.onlineShop.dao.impl.PromotionDaoImpl;
+import by.epam.onlineShop.dao.impl.RoleDaoImpl;
+import by.epam.onlineShop.dao.impl.UserDaoImpl;
+import by.epam.onlineShop.dao.impl.OrderDaoImpl;
+import by.epam.onlineShop.dao.impl.ProductDaoImpl;
+import by.epam.onlineShop.dao.impl.UserInformationDaoImpl;
+import by.epam.onlineShop.dao.impl.UserOrderDaoImpl;
+import by.epam.onlineShop.dao.impl.BankCardDaoImpl;
 
 public class DaoFactory {
     private final UserDao userDao = new UserDaoImpl();
@@ -11,8 +19,10 @@ public class DaoFactory {
     private final ProductDao productDao = new ProductDaoImpl();
     private final OrderDao orderDao = new OrderDaoImpl();
     private final UserOrderDao userOrderDao = new UserOrderDaoImpl();
+    private final BankCardDao bankCardDao = new BankCardDaoImpl();
 
-    private DaoFactory() { }
+    private DaoFactory() {
+    }
 
     public static DaoFactory getInstance() {
         return Holder.INSTANCE;
@@ -48,6 +58,10 @@ public class DaoFactory {
 
     public UserOrderDao getUserOrderDao() {
         return userOrderDao;
+    }
+
+    public BankCardDao getBankCardDao() {
+        return bankCardDao;
     }
 
     private static class Holder {

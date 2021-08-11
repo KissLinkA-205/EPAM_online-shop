@@ -12,7 +12,8 @@ import java.util.List;
 public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     private static final String FIND_ORDERS_BY_USER_ID_AND_USER_ORDER_ID_WITHOUT_USER_ORDER_QUERY =
             "SELECT * FROM " + Table.ORDER + " WHERE user_id=? AND product_id=? AND userOrder_id IS NULL";
-    private static final String FIND_ORDERS_BY_USER_ID_WITHOUT_USER_ORDER_QUERY = "SELECT * FROM " + Table.ORDER + " WHERE user_id=? AND userOrder_id IS NULL ORDER BY id DESC";
+    private static final String FIND_ORDERS_BY_USER_ID_WITHOUT_USER_ORDER_QUERY = "SELECT * FROM " + Table.ORDER +
+            " WHERE user_id=? AND userOrder_id IS NULL ORDER BY id DESC";
     private static final String FIND_ORDERS_BY_USER_ORDER_ID_QUERY = "SELECT * FROM " + Table.ORDER + " WHERE userOrder_id=?";
     private static final String FIND_ORDERS_BY_USER_ID_QUERY = "SELECT * FROM " + Table.ORDER + " WHERE user_id=? ORDER BY id DESC";
     private static final String UPDATE_USER_ORDER_QUERY = "UPDATE " + Table.ORDER + " SET userOrder_id=? WHERE id=?";

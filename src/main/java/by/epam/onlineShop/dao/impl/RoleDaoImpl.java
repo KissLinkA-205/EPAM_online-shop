@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class RoleDaoImpl extends AbstractDao<Role> implements RoleDao {
     private static final String SAVE_ROLE_QUERY = "INSERT INTO " + Table.ROLE + " (role) VALUES (?)";
-    private static final String FIND_ROLE_BY_NAME = "SELECT * FROM " + Table.ROLE + " WHERE role=?";
+    private static final String FIND_ROLE_BY_NAME_QUERY = "SELECT * FROM " + Table.ROLE + " WHERE role=?";
 
     public RoleDaoImpl() {
         super(RowMapperFactory.getInstance().getRoleRowMapper(), Table.ROLE);
@@ -24,6 +24,6 @@ public class RoleDaoImpl extends AbstractDao<Role> implements RoleDao {
 
     @Override
     public Optional<Role> findByName(String name) throws DaoException {
-        return executeQueryForSingleResult(FIND_ROLE_BY_NAME, name);
+        return executeQueryForSingleResult(FIND_ROLE_BY_NAME_QUERY, name);
     }
 }

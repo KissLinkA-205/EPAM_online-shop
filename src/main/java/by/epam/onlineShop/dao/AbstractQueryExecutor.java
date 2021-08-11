@@ -84,6 +84,7 @@ public class AbstractQueryExecutor<T extends Identifiable> {
             ConnectionPool.getInstance().releaseConnection(proxyConnection);
             return preparedStatement;
         } catch (SQLException e) {
+            logger.error("Unable to create statement!", e);
             throw new DaoException(e.getMessage(), e);
         }
     }
@@ -96,6 +97,7 @@ public class AbstractQueryExecutor<T extends Identifiable> {
                 entities.add(entity);
             }
         } catch (SQLException e) {
+            logger.error("Unable to create entity list!", e);
             throw new DaoException(e.getMessage(), e);
         }
         return entities;

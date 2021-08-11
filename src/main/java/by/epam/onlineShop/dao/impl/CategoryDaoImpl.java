@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class CategoryDaoImpl extends AbstractDao<Category> implements CategoryDao {
     private static final String SAVE_CATEGORY_QUERY = "INSERT INTO " + Table.CATEGORY + " (category) VALUES (?)";
-    private static final String FIND_CATEGORY_BY_NAME = "SELECT * FROM " + Table.CATEGORY + " WHERE category=?";
+    private static final String FIND_CATEGORY_BY_NAME_QUERY = "SELECT * FROM " + Table.CATEGORY + " WHERE category=?";
 
     public CategoryDaoImpl() {
         super(RowMapperFactory.getInstance().getCategoryRowMapper(), Table.CATEGORY);
@@ -24,6 +24,6 @@ public class CategoryDaoImpl extends AbstractDao<Category> implements CategoryDa
 
     @Override
     public Optional<Category> findByName(String name) throws DaoException {
-        return executeQueryForSingleResult(FIND_CATEGORY_BY_NAME, name);
+        return executeQueryForSingleResult(FIND_CATEGORY_BY_NAME_QUERY, name);
     }
 }
