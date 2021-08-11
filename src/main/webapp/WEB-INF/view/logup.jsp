@@ -10,7 +10,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>Registration | Online-shop</title>
+    <title>Log Up | Online-shop</title>
     <jsp:include page="fragments/headerLinks.jsp"/>
 </head>
 <body class="d-flex flex-column h-100">

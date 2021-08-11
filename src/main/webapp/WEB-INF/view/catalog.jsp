@@ -37,7 +37,12 @@
             <div class="card text-center">
                 <div class="card-header">
                     <h5><c:out value="${product.name}"/>
-                        <small class="text-muted"> #<c:out value="${product.id}"/></small>
+                        <small class="text-muted"> #<c:out value="${product.id}"/> </small>
+                        <c:if test="${sessionScope.role.name == 'admin'}">
+                            <a href="${pageContext.request.contextPath}/online-shop?command=editProduct&productId=${product.id}">
+                                <fmt:message bundle="${loc}" key="language.edit"/>
+                            </a>
+                        </c:if>
                     </h5>
                 </div>
                 <div class="card-body">

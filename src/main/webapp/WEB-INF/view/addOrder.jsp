@@ -31,7 +31,7 @@
             <c:if test="${sessionScope.user != null}">
             <c:if test="${errorMessage=='true'}">
                 <div class="alert alert-danger fade show" role="alert">
-                    <fmt:message bundle="${loc}" key="language.dataIsIncorrect"/>
+                    <fmt:message bundle="${loc}" key="language.addOrderError"/>
                 </div>
             </c:if>
 

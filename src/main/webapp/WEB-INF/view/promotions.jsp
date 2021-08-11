@@ -10,8 +10,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
-<jsp:include page="fragments/header.jsp"/>
-<title>Promotions | Online-shop</title>
+<head>
+    <jsp:include page="fragments/header.jsp"/>
+    <title>Promotions | Online-shop</title>
+</head>
 <body>
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="localization.language" var="loc"/>

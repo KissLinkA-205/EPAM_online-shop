@@ -12,7 +12,6 @@
 <head>
     <title>Log In | Online-shop</title>
     <jsp:include page="fragments/headerLinks.jsp"/>
-
 </head>
 <body>
 <fmt:setLocale value="${sessionScope.language}"/>
