@@ -21,6 +21,7 @@ public class Controller extends HttpServlet {
 
     private static final String COMMAND = "command";
     private static final String PATH = "/online-shop?";
+    private static final String MAIN_COMMAND = "command=main";
 
     @Override
     public void init() throws ServletException {
@@ -63,7 +64,7 @@ public class Controller extends HttpServlet {
         String commandName = request.getParameter(COMMAND);
 
         if (commandName == null || "".equals(commandName)) {
-            response.sendRedirect(PATH + "command=main");
+            response.sendRedirect(PATH + MAIN_COMMAND);
         } else {
             Command command = CommandFactory.getInstance().getCommand(commandName);
             RequestContextHelper contextHelper = new RequestContextHelper(request);
