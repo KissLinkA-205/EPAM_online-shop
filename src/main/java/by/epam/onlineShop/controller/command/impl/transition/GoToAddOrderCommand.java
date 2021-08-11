@@ -29,7 +29,7 @@ public class GoToAddOrderCommand implements Command {
 
         try {
             OrderService orderService = ServiceFactory.getInstance().getOrderService();
-            List<Order> orders = orderService.retrieveOrdersByUserWithoutUserOrder(userId);
+            List<Order> orders = orderService.retrieveOrdersByUserWhereProductStatusTrue(userId);
 
             double totalPrice = orderService.calculateTotalCost(orders);
             requestContext.addRequestAttribute(TOTAL_COST, totalPrice);

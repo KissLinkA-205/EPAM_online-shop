@@ -1,37 +1,35 @@
-package by.epam.onlineShop.controller.command.impl.transition;
+package by.epam.onlineShop.controller.command.impl;
 
 import by.epam.onlineShop.controller.command.Command;
 import by.epam.onlineShop.controller.command.CommandResult;
 import by.epam.onlineShop.controller.command.CommandResultType;
 import by.epam.onlineShop.controller.context.RequestContext;
 import by.epam.onlineShop.controller.context.RequestContextHelper;
-import by.epam.onlineShop.entity.Category;
 import by.epam.onlineShop.exeptions.ServiceException;
-import by.epam.onlineShop.service.CategoryService;
 import by.epam.onlineShop.service.ServiceFactory;
+import by.epam.onlineShop.service.UserOrderService;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
-public class GoToAddPromotionCommand implements Command {
-    private static final String PAGE = "WEB-INF/view/addPromotion.jsp";
+public class DeleteUserOrderCommand implements Command {
+    private static final String PAGE = "command=viewOrders";
+    private static final String USER_ORDER_ID = "userOrderId";
     private static final String ERROR_PAGE = "WEB-INF/view/error.jsp";
-    private static final String CATEGORIES = "categories";
+    private static final String CANCELED = "отменен";
 
     @Override
     public CommandResult execute(RequestContextHelper helper, HttpServletResponse response) {
         RequestContext requestContext = helper.createContext();
 
         try {
-            CategoryService categoryService = ServiceFactory.getInstance().getCategoryService();
-            List<Category> categories = categoryService.retrieveCategories();
-            requestContext.addRequestAttribute(CATEGORIES, categories);
-
+            long userOrderId = Long.parseLong(requestContext.getRequestParameter(USER_ORDER_ID));
+            UserOrderService userOrderService = ServiceFactory.getInstance().getUserOrderService();
+            userOrderService.updateStatusAtUserOrderById(userOrderId, CANCELED);
         } catch (ServiceException e) {
             return new CommandResult(ERROR_PAGE, CommandResultType.FORWARD);
         }
 
         helper.updateRequest(requestContext);
-        return new CommandResult(PAGE, CommandResultType.FORWARD);
+        return new CommandResult(PAGE, CommandResultType.REDIRECT);
     }
 }

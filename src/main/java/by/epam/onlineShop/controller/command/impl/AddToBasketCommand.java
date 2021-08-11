@@ -23,6 +23,8 @@ public class AddToBasketCommand implements Command {
     private static final String USER = "user";
     private static final String PRODUCT_ID = "productId";
     private static final String QUANTITY = "quantity";
+    private static final String OK = "ok";
+    private static final String ERROR = "error";
 
     @Override
     public CommandResult execute(RequestContextHelper helper, HttpServletResponse response) {
@@ -34,13 +36,17 @@ public class AddToBasketCommand implements Command {
             long productId = Long.parseLong(requestContext.getRequestParameter(PRODUCT_ID));
             int quantity = Integer.parseInt(requestContext.getRequestParameter(QUANTITY));
             OrderService orderService = ServiceFactory.getInstance().getOrderService();
-            String message = "ok";
+            String message = OK;
             boolean result = orderService.addNewOrder(userId, productId, quantity);
-            if (!result) message = "error";
+            if (!result) message = ERROR;
 
             ProductService productService = ServiceFactory.getInstance().getProductService();
             Optional<Product> product = productService.retrieveProductById(productId);
-            long categoryId = product.get().getCategoryId();
+
+            long categoryId = 0;
+            if (product.isPresent()) {
+                categoryId = product.get().getCategoryId();
+            }
 
             helper.updateRequest(requestContext);
             return new CommandResult(PAGE + CATEGORY_ID_PARAMETER + categoryId

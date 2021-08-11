@@ -23,4 +23,8 @@ public final class CommandName {
     public static final String ADD_TO_BASKET_COMMAND = "addToBasket";
     public static final String CONFIRM_ORDER_COMMAND = "confirmOrder";
     public static final String CONFIRM_ADDING_PRODUCT_COMMAND = "confirmAddingProduct";
+    public static final String DELETE_USER_ORDER_COMMAND = "deleteUserOrder";
+    public static final String EDIT_PRODUCT_COMMAND = "editProduct";
+    public static final String CONFIRM_EDIT_PRODUCT = "confirmEditProduct";
+    public static final String CONFIRM_ADDING_PROMOTION_COMMAND = "confirmAddingPromotion";
 }

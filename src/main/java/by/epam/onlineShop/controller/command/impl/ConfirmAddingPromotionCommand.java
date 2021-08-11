@@ -6,21 +6,21 @@ import by.epam.onlineShop.controller.command.CommandResultType;
 import by.epam.onlineShop.controller.context.RequestContext;
 import by.epam.onlineShop.controller.context.RequestContextHelper;
 import by.epam.onlineShop.exeptions.ServiceException;
-import by.epam.onlineShop.service.ProductService;
+import by.epam.onlineShop.service.PromotionService;
 import by.epam.onlineShop.service.ServiceFactory;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
-public class ConfirmAddingProductCommand implements Command {
-    private static final String PAGE = "command=addProduct";
+public class ConfirmAddingPromotionCommand implements Command {
+    private static final String PAGE = "command=addPromotion";
     private static final String ERROR_PAGE = "WEB-INF/view/error.jsp";
-    private static final String PRODUCT_NAME = "product-name";
+    private static final String PROMOTION_NAME = "promotion-name";
+    private static final String BEGINNING_DATE = "beginning-date";
+    private static final String EXPIRATION_DATE = "expiration-date";
+    private static final String DISCOUNT = "discount";
     private static final String PHOTO = "photo";
-    private static final String PRICE = "price";
-    private static final String CATEGORY = "category";
     private static final String DESCRIPTION = "description";
-    private static final String AVAILABILITY = "availability";
     private static final String MESSAGE_PARAMETER = "&message=";
     private static final String ERROR = "error";
     private static final String OK = "ok";
@@ -30,24 +30,20 @@ public class ConfirmAddingProductCommand implements Command {
         RequestContext requestContext = helper.createContext();
         String message = ERROR;
 
-        Optional<String> productName = Optional.ofNullable(requestContext.getRequestParameter(PRODUCT_NAME));
+        Optional<String> promotionName = Optional.ofNullable(requestContext.getRequestParameter(PROMOTION_NAME));
         Optional<String> photo = Optional.ofNullable(requestContext.getRequestParameter(PHOTO));
-        Optional<String> price = Optional.ofNullable(requestContext.getRequestParameter(PRICE));
-        Optional<String> category = Optional.ofNullable(requestContext.getRequestParameter(CATEGORY));
+        Optional<String> beginningDate = Optional.ofNullable(requestContext.getRequestParameter(BEGINNING_DATE));
+        Optional<String> expirationDate = Optional.ofNullable(requestContext.getRequestParameter(EXPIRATION_DATE));
         Optional<String> description = Optional.ofNullable(requestContext.getRequestParameter(DESCRIPTION));
-        Optional<String> availability = Optional.ofNullable(requestContext.getRequestParameter(AVAILABILITY));
+        Optional<String> discount = Optional.ofNullable(requestContext.getRequestParameter(DISCOUNT));
 
         try {
-            if (productName.isPresent() && photo.isPresent() && price.isPresent() && category.isPresent() &&
-                    description.isPresent()) {
-                boolean status = false;
-                if (availability.isPresent()) {
-                    status = true;
-                }
+            if (promotionName.isPresent() && photo.isPresent() && beginningDate.isPresent() && expirationDate.isPresent() &&
+                    description.isPresent() && discount.isPresent()) {
 
-                ProductService productService = ServiceFactory.getInstance().getProductService();
-                boolean result = productService.addNewProduct(productName.get(),
-                        photo.get(), price.get(), category.get(), status, description.get());
+                PromotionService promotionService = ServiceFactory.getInstance().getPromotionService();
+                boolean result = promotionService.addNewPromotion(promotionName.get(), photo.get(), beginningDate.get(),
+                        expirationDate.get(), description.get(), discount.get());
                 if (result) {
                     message = OK;
                 }

@@ -42,7 +42,7 @@ public class GoToBasketCommand implements Command {
 
             long userId = user.getId();
             OrderService orderService = ServiceFactory.getInstance().getOrderService();
-            List<Order> orders = orderService.retrieveOrdersByUserWithoutUserOrder(userId);
+            List<Order> orders = orderService.retrieveOrdersByUserWhereProductStatusTrue(userId);
             requestContext.addRequestAttribute(ORDERS, orders);
 
             double totalPrice = orderService.calculateTotalCost(orders);

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 public class LogUpCommand implements Command {
-    private static final String PAGE = "WEB-INF/view/logup.jsp";
+    private static final String LOG_UP_PAGE = "WEB-INF/view/logup.jsp";
     private static final String ERROR_PAGE = "WEB-INF/view/error.jsp";
     private static final String EMAIL = "email";
     private static final String PASSWORD_FIRST = "password-first";
@@ -24,11 +24,13 @@ public class LogUpCommand implements Command {
     private static final String PATRONYMIC = "patronymic";
     private static final String PHONE = "phone";
     private static final String MESSAGE = "message";
+    private static final String ERROR = "error";
+    private static final String OK = "ok";
 
     @Override
     public CommandResult execute(RequestContextHelper helper, HttpServletResponse response) {
         RequestContext requestContext = helper.createContext();
-        String message = "error";
+        String message = ERROR;
 
         Optional<String> email = Optional.ofNullable(requestContext.getRequestParameter(EMAIL));
         Optional<String> passwordFirst = Optional.ofNullable(requestContext.getRequestParameter(PASSWORD_FIRST));
@@ -44,7 +46,7 @@ public class LogUpCommand implements Command {
                 if (passwordFirst.get().equals(passwordSecond.get())) {
                     UserService userService = ServiceFactory.getInstance().getUserService();
                     boolean result = userService.register(name.get(), surname.get(), patronymic.get(), email.get(), phone.get(), DigestUtils.sha1Hex(passwordFirst.get()));
-                    if (result) message = "ok";
+                    if (result) message = OK;
                 }
             }
         } catch (ServiceException e) {
@@ -53,6 +55,6 @@ public class LogUpCommand implements Command {
 
         requestContext.addRequestAttribute(MESSAGE, message);
         helper.updateRequest(requestContext);
-        return new CommandResult(PAGE, CommandResultType.FORWARD);
+        return new CommandResult(LOG_UP_PAGE, CommandResultType.FORWARD);
     }
 }

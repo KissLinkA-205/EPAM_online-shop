@@ -32,6 +32,10 @@ public class CommandFactory {
         commands.put(CommandName.ADD_TO_BASKET_COMMAND, new AddToBasketCommand());
         commands.put(CommandName.CONFIRM_ORDER_COMMAND, new ConfirmOrderCommand());
         commands.put(CommandName.CONFIRM_ADDING_PRODUCT_COMMAND, new ConfirmAddingProductCommand());
+        commands.put(CommandName.DELETE_USER_ORDER_COMMAND, new DeleteUserOrderCommand());
+        commands.put(CommandName.EDIT_PRODUCT_COMMAND, new GoToEditProductCommand());
+        commands.put(CommandName.CONFIRM_EDIT_PRODUCT, new ConfirmProductChangeCommand());
+        commands.put(CommandName.CONFIRM_ADDING_PROMOTION_COMMAND, new ConfirmAddingPromotionCommand());
     }
 
     public static CommandFactory getInstance() {

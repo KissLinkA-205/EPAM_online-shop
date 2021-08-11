@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class ConfirmOrderCommand implements Command {
-    private static final String MY_ORDERS_PAGE = "WEB-INF/view/myOrders.jsp";
     private static final String ADD_ORDER_PAGE = "WEB-INF/view/addOrder.jsp";
+    private static final String MY_ORDERS_PAGE = "command=myOrders";
     private static final String ERROR_PAGE = "WEB-INF/view/error.jsp";
     private static final String ERROR_MESSAGE = "errorMessage";
     private static final String ADDRESS = "address";
@@ -29,6 +29,7 @@ public class ConfirmOrderCommand implements Command {
     private static final String MONTH = "month";
     private static final String YEAR = "year";
     private static final String USER = "user";
+    private static final String TOTAL_COST = "totalCost";
 
     @Override
     public CommandResult execute(RequestContextHelper helper, HttpServletResponse response) {
@@ -37,37 +38,40 @@ public class ConfirmOrderCommand implements Command {
         Optional<String> address = Optional.ofNullable(requestContext.getRequestParameter(ADDRESS));
         Optional<String> deliveryDate = Optional.ofNullable(requestContext.getRequestParameter(DELIVERY_DATE));
         Optional<String> cardholderName = Optional.ofNullable(requestContext.getRequestParameter(CARDHOLDER_NAME));
-        Optional<String> cvv = Optional.ofNullable(requestContext.getRequestParameter(CVV));
-        Optional<String> cardNumber = Optional.ofNullable(requestContext.getRequestParameter(CARD_NUMBER));
-        Optional<String> month = Optional.ofNullable(requestContext.getRequestParameter(MONTH));
-        Optional<String> year = Optional.ofNullable(requestContext.getRequestParameter(YEAR));
+        Optional<String> cvvString = Optional.ofNullable(requestContext.getRequestParameter(CVV));
+        Optional<String> cardNumberString = Optional.ofNullable(requestContext.getRequestParameter(CARD_NUMBER));
+        Optional<String> monthString = Optional.ofNullable(requestContext.getRequestParameter(MONTH));
+        Optional<String> yearString = Optional.ofNullable(requestContext.getRequestParameter(YEAR));
 
         try {
-            if (isPresent(address, deliveryDate, cardholderName, cvv, cardNumber, month, year)) {
-                User user = (User) requestContext.getSessionAttribute(USER);
-                long userId = user.getId();
-                OrderService orderService = ServiceFactory.getInstance().getOrderService();
-                List<Order> orders = orderService.retrieveOrdersByUserWithoutUserOrder(userId);
+            User user = (User) requestContext.getSessionAttribute(USER);
+            long userId = user.getId();
+            OrderService orderService = ServiceFactory.getInstance().getOrderService();
+            List<Order> orders = orderService.retrieveOrdersByUserWhereProductStatusTrue(userId);
+            double totalPrice = orderService.calculateTotalCost(orders);
+
+            if (isPresent(address, deliveryDate, cardholderName, cvvString, cardNumberString, monthString, yearString)) {
 
                 UserOrderService userOrderService = ServiceFactory.getInstance().getUserOrderService();
-                boolean result = userOrderService.addNewUserOrder(orders, address.get(), deliveryDate.get());
+                boolean result = userOrderService.addNewUserOrder(orders, address.get(), deliveryDate.get(), cardholderName.get(),
+                        cvvString.get(), cardNumberString.get(), monthString.get(), yearString.get(), totalPrice);
                 if (result) {
                     helper.updateRequest(requestContext);
-                    return new CommandResult(MY_ORDERS_PAGE, CommandResultType.FORWARD);
+                    return new CommandResult(MY_ORDERS_PAGE, CommandResultType.REDIRECT);
                 }
             }
+            requestContext.addRequestAttribute(TOTAL_COST, totalPrice);
+            requestContext.addRequestAttribute(ERROR_MESSAGE, true);
+            helper.updateRequest(requestContext);
+            return new CommandResult(ADD_ORDER_PAGE, CommandResultType.FORWARD);
         } catch (ServiceException e) {
             return new CommandResult(ERROR_PAGE, CommandResultType.FORWARD);
         }
-        requestContext.addRequestAttribute(ERROR_MESSAGE, true);
-        helper.updateRequest(requestContext);
-        return new CommandResult(ADD_ORDER_PAGE, CommandResultType.FORWARD);
     }
 
-    public boolean isPresent
-            (Optional<String> address, Optional<String> deliveryDate, Optional<String> cardholderName,
-             Optional<String> cvv, Optional<String> cardNumber, Optional<String> month, Optional<String> year) {
+    public boolean isPresent(Optional<String> address, Optional<String> deliveryDate, Optional<String> cardholderName,
+                             Optional<String> cvv, Optional<String> cardNumber, Optional<String> month, Optional<String> year) {
         return address.isPresent() && deliveryDate.isPresent() && cardholderName.isPresent() && cvv.isPresent()
-                && cardNumber.isPresent() && month.isPresent();
+                && cardNumber.isPresent() && month.isPresent() && year.isPresent();
     }
 }

@@ -21,6 +21,7 @@ public class GoToViewOrdersCommand implements Command {
     private static final String PRODUCTS = "products";
     private static final String ORDERS = "orders";
     private static final String USER_INFORMATION = "userInformation";
+    private static final String EXPECTED = "ожидается";
 
     @Override
     public CommandResult execute(RequestContextHelper helper, HttpServletResponse response) {
@@ -32,7 +33,7 @@ public class GoToViewOrdersCommand implements Command {
             requestContext.addRequestAttribute(CATEGORIES, categories);
 
             UserOrderService userOrderService = ServiceFactory.getInstance().getUserOrderService();
-            List<UserOrder> userOrders = userOrderService.retrieveUserOrderByStatus("ожидается");
+            List<UserOrder> userOrders = userOrderService.retrieveUserOrderByStatus(EXPECTED);
             requestContext.addRequestAttribute(USER_ORDERS, userOrders);
 
             OrderService orderService = ServiceFactory.getInstance().getOrderService();
