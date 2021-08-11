@@ -10,7 +10,6 @@ import by.epam.onlineShop.entity.User;
 import by.epam.onlineShop.entity.UserInformation;
 import by.epam.onlineShop.exeptions.DaoException;
 import by.epam.onlineShop.exeptions.ServiceException;
-import by.epam.onlineShop.service.ServiceFactory;
 import by.epam.onlineShop.service.UserService;
 import by.epam.onlineShop.service.validator.Validator;
 import by.epam.onlineShop.service.validator.ValidatorFactory;
@@ -24,6 +23,8 @@ import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
     private static final Logger logger = LogManager.getLogger();
+
+    private static final String USER = "user";
 
     @Override
     public Optional<User> login(String email, String password) throws ServiceException {
@@ -60,7 +61,7 @@ public class UserServiceImpl implements UserService {
                 return false;
             }
             RoleDaoImpl roleDao = DaoFactory.getInstance().getRoleDao();
-            Optional<Role> role = roleDao.findByName("user");
+            Optional<Role> role = roleDao.findByName(USER);
             if (!role.isPresent()) {
                 return false;
             }
@@ -95,14 +96,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUsersFromOrders(List<Order> orders) throws ServiceException {
         List<User> users = new LinkedList<>();
-
-        for (Order order : orders) {
-            Optional<User> user = retrieveUserById(order.getUserId());
-            if (user.isPresent()) {
-                if (!users.contains(user.get())) {
-                    users.add(user.get());
+        try {
+            for (Order order : orders) {
+                Optional<User> user = retrieveUserById(order.getUserId());
+                if (user.isPresent()) {
+                    if (!users.contains(user.get())) {
+                        users.add(user.get());
+                    }
                 }
             }
+        } catch (ServiceException e) {
+            logger.error("Unable to retrieve users  from orders!");
+            throw new ServiceException(e.getMessage(), e);
         }
 
         return users;

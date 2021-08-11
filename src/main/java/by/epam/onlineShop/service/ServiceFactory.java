@@ -1,6 +1,14 @@
 package by.epam.onlineShop.service;
 
-import by.epam.onlineShop.service.impl.*;
+import by.epam.onlineShop.service.impl.CategoryServiceImpl;
+import by.epam.onlineShop.service.impl.OrderServiceImpl;
+import by.epam.onlineShop.service.impl.PromotionServiceImpl;
+import by.epam.onlineShop.service.impl.UserServiceImpl;
+import by.epam.onlineShop.service.impl.ProductServiceImpl;
+import by.epam.onlineShop.service.impl.RoleServiceImpl;
+import by.epam.onlineShop.service.impl.UserInformationServiceImpl;
+import by.epam.onlineShop.service.impl.UserOrderServiceImpl;
+import by.epam.onlineShop.service.impl.BankCardServiceImpl;
 
 public class ServiceFactory {
     private final UserService userService = new UserServiceImpl();
@@ -11,8 +19,10 @@ public class ServiceFactory {
     private final RoleService roleService = new RoleServiceImpl();
     private final UserInformationService userInformationService = new UserInformationServiceImpl();
     private final UserOrderService userOrderService = new UserOrderServiceImpl();
+    private final BankCardService bankCardService = new BankCardServiceImpl();
 
-    private ServiceFactory() { }
+    private ServiceFactory() {
+    }
 
     public static ServiceFactory getInstance() {
         return Holder.INSTANCE;
@@ -32,6 +42,10 @@ public class ServiceFactory {
 
     public OrderService getOrderService() {
         return orderService;
+    }
+
+    public BankCardService getBankCardService() {
+        return bankCardService;
     }
 
     public ProductService getProductService() {

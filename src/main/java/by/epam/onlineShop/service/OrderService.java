@@ -27,6 +27,15 @@ public interface OrderService {
     List<Order> retrieveOrdersByUser(long userId) throws ServiceException;
 
     /**
+     * Method to retrieve orders by user ID where user order is null and status is true
+     *
+     * @param userId ID of user
+     * @return List of orders
+     * @throws ServiceException
+     */
+    List<Order> retrieveOrdersByUserWhereProductStatusTrue(long userId) throws ServiceException;
+
+    /**
      * Method to retrieve orders by user order
      *
      * @param userOrderId ID of user order

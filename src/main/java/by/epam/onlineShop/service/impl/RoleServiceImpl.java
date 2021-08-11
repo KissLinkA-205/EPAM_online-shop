@@ -2,8 +2,6 @@ package by.epam.onlineShop.service.impl;
 
 import by.epam.onlineShop.dao.DaoFactory;
 import by.epam.onlineShop.dao.RoleDao;
-import by.epam.onlineShop.dao.impl.PromotionDaoImpl;
-import by.epam.onlineShop.entity.Promotion;
 import by.epam.onlineShop.entity.Role;
 import by.epam.onlineShop.exeptions.DaoException;
 import by.epam.onlineShop.exeptions.ServiceException;

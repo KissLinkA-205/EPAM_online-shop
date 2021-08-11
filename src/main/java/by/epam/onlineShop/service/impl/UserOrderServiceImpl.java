@@ -1,21 +1,23 @@
 package by.epam.onlineShop.service.impl;
 
 import by.epam.onlineShop.dao.DaoFactory;
+import by.epam.onlineShop.dao.OrderDao;
 import by.epam.onlineShop.dao.UserOrderDao;
 import by.epam.onlineShop.entity.Order;
 import by.epam.onlineShop.entity.UserOrder;
 import by.epam.onlineShop.exeptions.DaoException;
 import by.epam.onlineShop.exeptions.ServiceException;
+import by.epam.onlineShop.service.BankCardService;
+import by.epam.onlineShop.service.ServiceFactory;
 import by.epam.onlineShop.service.UserOrderService;
+import by.epam.onlineShop.service.validator.Validator;
+import by.epam.onlineShop.service.validator.ValidatorFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class UserOrderServiceImpl implements UserOrderService {
     private static final Logger logger = LogManager.getLogger();
@@ -63,10 +65,11 @@ public class UserOrderServiceImpl implements UserOrderService {
     }
 
     @Override
-    public boolean addNewUserOrder(List<Order> orders, String address, String deliveryDateString) throws ServiceException {
+    public boolean addNewUserOrder(List<Order> orders, String address, String deliveryDateString, String cardholderName,
+                                   String cvvString, String cardNumberString, String monthString, String yearString, double totalPrice) throws ServiceException {
         try {
-            UserOrderDao userOrderDao = DaoFactory.getInstance().getUserOrderDao();
-            if (address == null || deliveryDateString == null || orders.size() < 1) {
+            if (address == null || deliveryDateString == null || orders.size() < 1 || cardholderName == null ||
+                    cvvString == null || cardNumberString == null || monthString == null || yearString == null) {
                 return false;
             }
 
@@ -76,10 +79,39 @@ public class UserOrderServiceImpl implements UserOrderService {
                 return false;
             }
 
-            UserOrder userOrder = buildUserOrder(address, deliveryDate, currentDate, "expected");
-            userOrderDao.save(userOrder);
+            Validator cardNumberValidator = ValidatorFactory.getInstance().getCardNumberValidator();
+            Validator cvvValidator = ValidatorFactory.getInstance().getCvvValidator();
+            Validator monthValidator = ValidatorFactory.getInstance().getMonthValidator();
+            Validator yearValidator = ValidatorFactory.getInstance().getYearValidator();
+
+            if (!(cardNumberValidator.isValid(cardNumberString) && cvvValidator.isValid(cvvString)
+                    && monthValidator.isValid(monthString) && yearValidator.isValid(yearString))) {
+                return false;
+            }
+
+            long cardNumber = Long.parseLong(cardNumberString);
+            int cvv = Integer.parseInt(cvvString);
+            int month = Integer.parseInt(monthString);
+            int year = Integer.parseInt(yearString);
+            if (!isCardDateValid(month, year)) {
+                return false;
+            }
+
+            BankCardService bankCardService = ServiceFactory.getInstance().getBankCardService();
+            if (!bankCardService.makePayment(cardNumber, month, year, cvv, totalPrice)) {
+                return false;
+            }
+
+            UserOrder userOrder = buildUserOrder(address, deliveryDate, currentDate, "ожидается");
+            UserOrderDao userOrderDao = DaoFactory.getInstance().getUserOrderDao();
+            long userOrderId = userOrderDao.save(userOrder);
+
+            OrderDao orderDao = DaoFactory.getInstance().getOrderDao();
+            for (Order order : orders) {
+                orderDao.updateUserOrder(order.getId(), userOrderId);
+            }
             return true;
-        } catch (DaoException | ParseException e) {
+        } catch (ParseException | DaoException e) {
             logger.error("Unable to add new user order!");
             throw new ServiceException(e.getMessage(), e);
         }
@@ -109,6 +141,22 @@ public class UserOrderServiceImpl implements UserOrderService {
 
     private boolean isDateValid(Date deliveryDate, Date currentDate) {
         return deliveryDate.compareTo(currentDate) > 0;
+    }
+
+    private boolean isCardDateValid(int month, int year) {
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int currentMonth = cal.get(Calendar.MONTH);
+        int currentYear = cal.get(Calendar.YEAR);
+
+        if (year < currentYear) return false;
+        if (year == currentYear) {
+            if (month <= currentMonth) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private UserOrder buildUserOrder(String address, Date deliveryDate, Date orderDate, String status) {

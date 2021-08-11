@@ -6,7 +6,6 @@ import by.epam.onlineShop.entity.User;
 import by.epam.onlineShop.entity.UserInformation;
 import by.epam.onlineShop.exeptions.DaoException;
 import by.epam.onlineShop.exeptions.ServiceException;
-import by.epam.onlineShop.service.ServiceFactory;
 import by.epam.onlineShop.service.UserInformationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,14 +33,18 @@ public class UserInformationServiceImpl implements UserInformationService {
     @Override
     public List<UserInformation> getUserInformationFromUsers(List<User> users) throws ServiceException {
         List<UserInformation> userInformation = new LinkedList<>();
-
-        for (User user : users) {
-            Optional<UserInformation> information = retrieveUserInformationById(user.getUserInformationId());
-            if (information.isPresent()) {
-                if (!userInformation.contains(information.get())) {
-                    userInformation.add(information.get());
+        try {
+            for (User user : users) {
+                Optional<UserInformation> information = retrieveUserInformationById(user.getUserInformationId());
+                if (information.isPresent()) {
+                    if (!userInformation.contains(information.get())) {
+                        userInformation.add(information.get());
+                    }
                 }
             }
+        } catch (ServiceException e) {
+            logger.error("Unable to get user information from users!");
+            throw new ServiceException(e.getMessage(), e);
         }
 
         return userInformation;

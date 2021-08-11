@@ -44,4 +44,28 @@ public interface PromotionService {
      * @throws ServiceException
      */
     Map<String, Double> getNewPrices(List<Product> products) throws ServiceException;
+
+    /**
+     * Method to add new promotion
+     *
+     * @param promotionName        name of promotion
+     * @param photo                photo of promotion
+     * @param beginningDateString  promotion beginning date String type
+     * @param expirationDateString promotion expiration date String type
+     * @param description          promotion description
+     * @param discountString       promotion discount String type
+     * @return {@code true} if promotion was successfully added, {@code false} otherwise
+     * @throws ServiceException
+     */
+    boolean addNewPromotion(String promotionName, String photo, String beginningDateString, String expirationDateString,
+                            String description, String discountString) throws ServiceException;
+
+    /**
+     * Method to check the relevance of the promotion
+     *
+     * @param promotion Optional of promotion
+     * @return {@code true} if promotion is relevant, {@code false} otherwise
+     * @throws ServiceException
+     */
+    boolean checkRelevanceOfPromotion(Optional<Promotion> promotion);
 }

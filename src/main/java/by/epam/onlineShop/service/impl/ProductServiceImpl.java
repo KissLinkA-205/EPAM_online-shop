@@ -3,15 +3,16 @@ package by.epam.onlineShop.service.impl;
 import by.epam.onlineShop.dao.CategoryDao;
 import by.epam.onlineShop.dao.DaoFactory;
 import by.epam.onlineShop.dao.ProductDao;
+import by.epam.onlineShop.dao.PromotionDao;
 import by.epam.onlineShop.entity.Category;
 import by.epam.onlineShop.entity.Order;
 import by.epam.onlineShop.entity.Product;
+import by.epam.onlineShop.entity.Promotion;
 import by.epam.onlineShop.exeptions.DaoException;
 import by.epam.onlineShop.exeptions.ServiceException;
 import by.epam.onlineShop.service.ProductService;
 import by.epam.onlineShop.service.validator.Validator;
 import by.epam.onlineShop.service.validator.ValidatorFactory;
-import by.epam.onlineShop.service.validator.impl.PriceValidatorImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -60,7 +61,6 @@ public class ProductServiceImpl implements ProductService {
                 }
             }
         }
-
         return products;
     }
 
@@ -71,7 +71,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         Validator priceValidator = ValidatorFactory.getInstance().getPriceValidator();
-        if(!priceValidator.isValid(priceString)) {
+        if (!priceValidator.isValid(priceString)) {
             return false;
         }
 
@@ -82,16 +82,8 @@ public class ProductServiceImpl implements ProductService {
                 return false;
             }
 
-            CategoryDao categoryDao = DaoFactory.getInstance().getCategoryDao();
-            Optional<Category> categoryExist = categoryDao.findByName(categoryName);
-            long categoryId;
-            if (categoryExist.isPresent()) {
-                categoryId = categoryExist.get().getId();
-            } else {
-                Category category = new Category();
-                category.setCategoryName(categoryName);
-                categoryId = categoryDao.save(category);
-            }
+            long categoryId = getCategoryId(categoryName);
+
             double price = Double.parseDouble(priceString);
             Product product = buildProduct(categoryId, productName, description, price, status, photo);
             productDao.save(product);
@@ -99,6 +91,52 @@ public class ProductServiceImpl implements ProductService {
             return true;
         } catch (DaoException e) {
             logger.error("Unable to add product!");
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public boolean updateProductInformation(String productIdString, String productName, String photo, String priceString, String categoryName, boolean status, String description, String promotionIdString) throws ServiceException {
+        if (productIdString == null || productName == null || photo == null || priceString == null ||
+                categoryName == null || description == null || promotionIdString == null) {
+            return false;
+        }
+
+        Validator priceValidator = ValidatorFactory.getInstance().getPriceValidator();
+        if (!priceValidator.isValid(priceString)) {
+            return false;
+        }
+
+        Validator idValidator = ValidatorFactory.getInstance().getIdValidator();
+        if (!(idValidator.isValid(promotionIdString) || idValidator.isValid(productIdString))) {
+            return false;
+        }
+
+        long categoryId = getCategoryId(categoryName);
+        long promotionId = Long.parseLong(promotionIdString);
+        long productId = Long.parseLong(productIdString);
+        try {
+            PromotionDao promotionDao = DaoFactory.getInstance().getPromotionDao();
+            Optional<Promotion> promotion = promotionDao.findById(promotionId);
+            if (!(promotion.isPresent() || promotionId == 0)) {
+                return false;
+            }
+
+            double price = Double.parseDouble(priceString);
+            ProductDao productDao = DaoFactory.getInstance().getProductDao();
+            Product product = buildProduct(categoryId, productName, description, price, status, photo);
+            product.setPromotionId(promotionId);
+            productDao.updateById(productId, product);
+
+            if (promotionId == 0) {
+                productDao.removePromotionById(productId);
+            } else {
+                productDao.updatePromotionById(productId, promotionId);
+            }
+
+            return true;
+        } catch (DaoException e) {
+            logger.error("Unable to update product!");
             throw new ServiceException(e.getMessage(), e);
         }
     }
@@ -113,5 +151,25 @@ public class ProductServiceImpl implements ProductService {
         product.setStatus(status);
         product.setPhoto(photo);
         return product;
+    }
+
+    private long getCategoryId(String categoryName) throws ServiceException {
+        try {
+            CategoryDao categoryDao = DaoFactory.getInstance().getCategoryDao();
+            Optional<Category> categoryExist = categoryDao.findByName(categoryName);
+
+            long categoryId;
+            if (categoryExist.isPresent()) {
+                categoryId = categoryExist.get().getId();
+            } else {
+                Category category = new Category();
+                category.setCategoryName(categoryName);
+                categoryId = categoryDao.save(category);
+            }
+            return categoryId;
+        } catch (DaoException e) {
+            logger.error("Unable to get category id!");
+            throw new ServiceException(e.getMessage(), e);
+        }
     }
 }

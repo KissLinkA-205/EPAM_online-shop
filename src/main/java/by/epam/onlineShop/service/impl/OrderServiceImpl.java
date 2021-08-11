@@ -11,11 +11,13 @@ import by.epam.onlineShop.entity.UserOrder;
 import by.epam.onlineShop.exeptions.DaoException;
 import by.epam.onlineShop.exeptions.ServiceException;
 import by.epam.onlineShop.service.OrderService;
+import by.epam.onlineShop.service.ProductService;
 import by.epam.onlineShop.service.PromotionService;
 import by.epam.onlineShop.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +47,30 @@ public class OrderServiceImpl implements OrderService {
             return result;
         } catch (DaoException e) {
             logger.error("Unable to retrieve orders by user id without user order!");
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public List<Order> retrieveOrdersByUserWhereProductStatusTrue(long userId) throws ServiceException {
+        try {
+            List<Order> orders = retrieveOrdersByUserWithoutUserOrder(userId);
+
+            ProductService productService = ServiceFactory.getInstance().getProductService();
+            Iterator<Order> orderIterator = orders.iterator();
+            while (orderIterator.hasNext()) {
+                Order nextOrder = orderIterator.next();
+                Optional<Product> product = productService.retrieveProductById(nextOrder.getProductId());
+                if (product.isPresent()) {
+                    if (!product.get().isStatus()) {
+                        orderIterator.remove();
+                    }
+                }
+            }
+
+            return orders;
+        } catch (ServiceException e) {
+            logger.error("Unable to retrieve orders by user id where status is true!");
             throw new ServiceException(e.getMessage(), e);
         }
     }
@@ -109,9 +135,8 @@ public class OrderServiceImpl implements OrderService {
                     if (product.get().getPromotionId() != 0) {
                         PromotionDaoImpl promotionDao = DaoFactory.getInstance().getPromotionDao();
                         Optional<Promotion> promotion = promotionDao.findById(product.get().getPromotionId());
-
-                        if (promotion.isPresent()) {
-                            PromotionService promotionService = ServiceFactory.getInstance().getPromotionService();
+                        PromotionService promotionService = ServiceFactory.getInstance().getPromotionService();
+                        if (promotionService.checkRelevanceOfPromotion(promotion)) {
                             double newPrice = promotionService.calculateNewPrice(product.get().getPrice(), promotion.get().getDiscount());
                             double scale = Math.pow(10, 2);
                             newPrice = Math.ceil(newPrice * scale) / scale;

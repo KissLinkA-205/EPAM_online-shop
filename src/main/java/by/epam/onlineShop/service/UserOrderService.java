@@ -46,7 +46,8 @@ public interface UserOrderService {
      * @return {@code true} if user order was successfully added, {@code false} otherwise
      * @throws ServiceException
      */
-    boolean addNewUserOrder(List<Order> orders, String address, String deliveryDateString) throws ServiceException;
+    boolean addNewUserOrder(List<Order> orders, String address, String deliveryDateString, String cardholderName,
+                            String cvvString, String cardNumberString, String monthString, String yearString, double totalPrice) throws ServiceException;
 
     /**
      * Method to get user orders from orders
