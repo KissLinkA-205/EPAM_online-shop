@@ -1,6 +1,8 @@
 package by.epam.onlineShop.entity;
 
-public class User implements Identifiable {
+import java.io.Serializable;
+
+public class User implements Identifiable, Serializable {
     private long id;
     private long userInformationId;
     private String email;

@@ -1,12 +1,16 @@
 package by.epam.onlineShop.entity;
 
-public class BankCard implements Identifiable {
+import java.io.Serializable;
+
+public class BankCard implements Identifiable, Serializable {
     private long id;
     private long userInformationId;
     private long cardNumber;
     private int expirationMonth;
     private int expirationYear;
     private String cardholderName;
+    private double balance;
+    private int cvv;
 
     public BankCard() { }
 
@@ -66,6 +70,22 @@ public class BankCard implements Identifiable {
 
     public void setCardholderName(String cardholderName) {
         this.cardholderName = cardholderName;
+    }
+
+    public int getCvv() {
+        return cvv;
+    }
+
+    public void setCvv(int cvv) {
+        this.cvv = cvv;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public double getBalance() {
+        return balance;
     }
 
     @Override

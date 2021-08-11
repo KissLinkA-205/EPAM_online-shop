@@ -1,6 +1,8 @@
 package by.epam.onlineShop.entity;
 
-public class Product implements Identifiable {
+import java.io.Serializable;
+
+public class Product implements Identifiable, Serializable {
     private long id;
     private long categoryId;
     private long promotionId;

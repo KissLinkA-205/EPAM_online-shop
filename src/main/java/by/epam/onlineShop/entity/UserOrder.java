@@ -9,7 +9,9 @@ public class UserOrder implements Identifiable {
     private Date deliveryDate;
     private String status;
 
-    public UserOrder() {}
+    public UserOrder() {
+
+    }
 
     public UserOrder(long id, String address, Date orderDate, Date deliveryDate, String status) {
         this.id = id;
