@@ -2,9 +2,7 @@ package by.epam.onlineShop.service.impl;
 
 import by.epam.onlineShop.dao.DaoFactory;
 import by.epam.onlineShop.dao.impl.CategoryDaoImpl;
-import by.epam.onlineShop.dao.impl.PromotionDaoImpl;
 import by.epam.onlineShop.entity.Category;
-import by.epam.onlineShop.entity.Promotion;
 import by.epam.onlineShop.exeptions.DaoException;
 import by.epam.onlineShop.exeptions.ServiceException;
 import by.epam.onlineShop.service.CategoryService;

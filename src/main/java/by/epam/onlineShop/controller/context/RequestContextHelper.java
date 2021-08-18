@@ -77,7 +77,5 @@ public class RequestContextHelper {
         }
         return resultMap;
     }
-
-
 }
 

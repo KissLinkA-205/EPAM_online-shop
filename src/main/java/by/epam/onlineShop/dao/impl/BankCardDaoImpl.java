@@ -5,7 +5,6 @@ import by.epam.onlineShop.dao.BankCardDao;
 import by.epam.onlineShop.dao.Table;
 import by.epam.onlineShop.dao.mapper.RowMapperFactory;
 import by.epam.onlineShop.entity.BankCard;
-import by.epam.onlineShop.entity.Order;
 import by.epam.onlineShop.exeptions.DaoException;
 
 import java.util.Optional;
