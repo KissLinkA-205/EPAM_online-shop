@@ -24,7 +24,7 @@ VALUES ('Летняя распродажа', 'Покупайте товары с
 
 INSERT INTO promotions(name, description, discount, beginning_date, expiration_date, photo)
 VALUES ('Слушай музыку', 'Акция "Слушай музыку". Купите наушники со скидкой и слушайте любимую музыку где захотите!',
-        50, '2021-07-24', '2021-08-24', 'promotions/listen_music.jpg');
+        50, '2021-07-26', '2021-08-26', 'promotions/listen_music.jpg');
 
 /* todo --------------filling in the table "BankCards"---------------------*/
 INSERT INTO BankCards (card_number, expiration_year, expiration_month, card_owner, cvv, balance)
@@ -48,13 +48,13 @@ VALUES (3, 1, '17ekaterina17@mail.ru', SHA1('000Kate'));
 
 /* todo --------------filling in the table "UserOrders"---------------------*/
 INSERT INTO UserOrders (address, order_date, delivery_date, status)
-VALUES ('г. Минск, ул. Красная д. 22', '2021-06-18', '2021-08-21', 'ожидается');
+VALUES ('г. Минск, ул. Красная д. 22', '2021-08-18', '2021-08-21', 'ожидается');
 
 INSERT INTO UserOrders (address, order_date, delivery_date, status)
-VALUES ('г. Минск, ул. Якуба Коласа д. 28', '2021-06-16', '2021-08-24','ожидается');
+VALUES ('г. Минск, ул. Якуба Коласа д. 28', '2021-08-16', '2021-08-24','ожидается');
 
 INSERT INTO UserOrders (address, order_date, delivery_date, status)
-VALUES ('г. Минск, ул. Якуба Коласа д. 28', '2021-06-17', '2021-08-27', 'ожидается');
+VALUES ('г. Минск, ул. Якуба Коласа д. 28', '2021-08-17', '2021-08-27', 'ожидается');
 
 /* todo --------------filling in the table "Categories"---------------------*/
 INSERT INTO Categories (category)
