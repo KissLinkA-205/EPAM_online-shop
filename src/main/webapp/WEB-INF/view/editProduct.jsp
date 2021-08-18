@@ -73,7 +73,7 @@
 
                         <div class="col-sm mb-3">
                             <label for="promotion" class="form-label"><fmt:message bundle="${loc}" key="language.promotionId"/></label>
-                            <input type="text" name="promotion" id="promotion" class="form-control"
+                            <input type="text" name="promotion" id="promotion" class="form-control" pattern="(?<![-.])\b[0-9]+\b(?!\.[0-9])"
                                    placeholder="<fmt:message bundle="${loc}" key="language.promotionId"/>" required
                                    value="${product.promotionId}">
                         </div>
