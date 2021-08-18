@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class IdValidatorTest {
     private final AbstractValidator validator = new IdValidatorImpl();
-    private static final String CORRECT_ID = "test.email@gmail.com";
-    private static final String INCORRECT_ID = "test.email@com";
+    private static final String CORRECT_ID = "12";
+    private static final String INCORRECT_ID = "-12";
 
     @Test
     public void testIdValidator_ShouldReturnTrue_WhenDataIsCorrect() {
