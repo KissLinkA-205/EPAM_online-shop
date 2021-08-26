@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS UserOrders
     address         VARCHAR(100) NOT NULL,
     order_date      DATE NOT NULL,
     delivery_date   DATE NOT NULL,
-    status          VARCHAR(15) NOT NULL DEFAULT 'expected',
+    status          VARCHAR(15) NOT NULL DEFAULT 'ожидается',
     PRIMARY KEY (id)
 );
 
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS Categories
 CREATE TABLE IF NOT EXISTS Promotions
 (
     id               BIGINT UNSIGNED AUTO_INCREMENT,
-    name             VARCHAR(20) NOT NULL,
+    name             VARCHAR(50) NOT NULL,
     description      TEXT(2048),
     discount         TINYINT(3) NOT NULL,
     beginning_date   DATE NOT NULL,
